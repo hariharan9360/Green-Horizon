@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Quiz | Green Horizon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles from your home page */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .top-toolbar {
+            background-color: #2e7d32;
+            color: white;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .toolbar-container {
+            display: flex;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        
+        .tool-btn {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .tool-btn:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .tool-btn i {
+            margin-right: 5px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .logo-icon {
+            background-color: #2e7d32;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .logo-text span {
+            color: #2e7d32;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #2e7d32;
+        }
+        
+        .btn-nav {
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-nav-outline {
+            border: 2px solid #2e7d32;
+            color: #2e7d32;
+        }
+        
+        .btn-nav-filled {
+            background-color: #2e7d32;
+            color: white;
+        }
+        
+        .btn-nav-filled:hover {
+            background-color: #1b5e20;
+        }
+        
+        /* Quiz specific styles */
+        .quiz-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        .quiz-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: #2e7d32;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .quiz-header p {
+            color: #555;
+            font-size: 1.1rem;
+        }
+        
+        .question-container {
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1.2rem;
+        }
+        
+        .choices {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        
+        .choice {
+            padding: 12px 15px;
+            background-color: #fff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+        
+        .choice:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .choice.selected {
+            border-color: #4a90e2;
+            background-color: #e3f2fd;
+        }
+        
+        .choice.correct {
+            border-color: #4caf50;
+            background-color: #e8f5e9;
+        }
+        
+        .choice.incorrect {
+            border-color: #f44336;
+            background-color: #ffebee;
+        }
+        
+        .nextBtn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        
+        .nextBtn:hover {
+            background-color: #1b5e20;
+        }
+        
+        .scoreCard {
+            text-align: center;
+            font-size: 1.5rem;
+            margin: 20px 0;
+            color: #2e7d32;
+            font-weight: 600;
+        }
+        
+        .alert {
+            display: none;
+            padding: 15px;
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #4a90e2;
+        }
+        
+        .startBtn {
+            display: block;
+            width: 200px;
+            padding: 15px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 40px auto;
+            text-align: center;
+        }
+        
+        .startBtn:hover {
+            background-color: #1b5e20;
+        }
+        
+        .timer {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .explanation {
+            font-style: italic;
+            color: #555;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #ccc;
+        }
+        
+        .return-home {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2e7d32;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .return-home:hover {
+            background-color: #1b5e20;
+        }
+        
+        .container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Image -->
+    <div class="quiz-bg"></div>
+    
+    <!-- Top Toolbar -->
+    <div class="top-toolbar">
+        <div class="toolbar-container">
+            <a href="carbonfoot.html" class="tool-btn">
+                <i class="fas fa-calculator"></i>
+                Carbon Footprint
+            </a>
+            <a href="quiz.html" class="tool-btn">
+                <i class="fas fa-question-circle"></i>
+                Eco Quiz
+            </a>
+            <a href="blogs.html" class="tool-btn">
+                <i class="fas fa-newspaper"></i>
+                Blogs
+            </a>
+            <a href="#" class="tool-btn">
+                <i class="fas fa-chart-line"></i>
+                Progress Tracker
+            </a>
+            <a href="challenges.html" class="tool-btn">
+                <i class="fas fa-leaf"></i>
+                Challenges
+            </a>
+            <a href="product.html" class="tool-btn">
+                <i class="fas fa-shopping-bag"></i>
+                Eco Products
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="home.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="logo-text">Green<span>Horizon</span></div>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#">Solutions</a></li>
+                    <li><a href="#">Impact</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="home.html" class="btn-nav btn-nav-filled">Return Home</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Quiz Container -->
+    <button class="startBtn">Start Quiz</button>
+    
+    <div class="container">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h2>Environmental Awareness Quiz</h2>
+                <p>Test your knowledge about sustainability and eco-friendly practices</p>
+            </div>
+            
+            <div class="timer">15</div>
+            <div class="alert"></div>
+            
+            <div class="question-container">
+                <div class="question"></div>
+                <div class="choices"></div>
+            </div>
+            
+            <button class="nextBtn">Next</button>
+            <div class="scoreCard"></div>
+            
+            <a href="home.html" class="return-home">
+                <i class="fas fa-home"></i> Return to Home
+            </a>
+        </div>
+    </div>
+
+   
+
+    <script>
+        // Full pool of 50 questions
+        const questionPool = [
+            {
+                question: "What is the main cause of deforestation?",
+                choices: ["Industrial logging", "Urbanization", "Farming", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which gas is primarily responsible for global warming?",
+                choices: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Methane"],
+                answer: "Carbon Dioxide"
+            },
+            {
+                question: "What is a renewable energy source?",
+                choices: ["Coal", "Natural Gas", "Solar Energy", "Nuclear Energy"],
+                answer: "Solar Energy"
+            },
+            {
+                question: "Which of the following is the most effective way to reduce carbon footprint?",
+                choices: ["Using public transportation", "Eating more vegetables", "Reducing plastic use", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "What is the primary cause of ocean pollution?",
+                choices: ["Oil spills", "Plastic waste", "Chemical runoff", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "How much of the world's water is freshwater?",
+                choices: ["10%", "25%", "3%", "50%"],
+                answer: "3%"
+            },
+            {
+                question: "Which of these items takes the longest to decompose?",
+                choices: ["Plastic bag", "Aluminum can", "Glass bottle", "Paper cup"],
+                answer: "Glass bottle"
+            },
+            {
+                question: "What percentage of plastic waste is recycled globally?",
+                choices: ["9%", "25%", "50%", "75%"],
+                answer: "9%"
+            },
+            {
+                question: "Which country is the largest emitter of CO2?",
+                choices: ["USA", "India", "China", "Russia"],
+                answer: "China"
+            },
+            {
+                question: "What is the biggest contributor to food waste?",
+                choices: ["Restaurants", "Grocery stores", "Households", "Farms"],
+                answer: "Households"
+            },
+            {
+                question: "Which of these is NOT a greenhouse gas?",
+                choices: ["Carbon dioxide", "Methane", "Nitrogen", "Water vapor"],
+                answer: "Nitrogen"
+            },
+            {
+                question: "What is the most effective way to save water at home?",
+                choices: ["Shorter showers", "Fixing leaks", "Watering plants at night", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these materials is most easily recyclable?",
+                choices: ["Plastic bags", "Aluminum cans", "Styrofoam", "Pizza boxes"],
+                answer: "Aluminum cans"
+            },
+            {
+                question: "What is the main environmental benefit of eating less meat?",
+                choices: ["Reduces water usage", "Lowers greenhouse gas emissions", "Decreases land use", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these is a sustainable alternative to plastic straws?",
+                choices: ["Paper straws", "Metal straws", "Bamboo straws", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "What percentage of marine pollution comes from land-based sources?",
+                choices: ["30%", "50%", "80%", "95%"],
+                answer: "80%"
+            },
+            {
+                question: "Which of these is NOT a benefit of urban trees?",
+                choices: ["Reducing air pollution", "Increasing property values", "Reducing noise pollution", "Increasing local temperatures"],
+                answer: "Increasing local temperatures"
+            },
+            {
+                question: "What is the most energy-efficient way to wash clothes?",
+                choices: ["Wash in hot water", "Wash full loads", "Use extra rinse cycle", "Dry clean only"],
+                answer: "Wash full loads"
+            },
+            {
+                question: "Which of these is a characteristic of sustainable farming?",
+                choices: ["Crop rotation", "Heavy pesticide use", "Monocropping", "Artificial fertilizers"],
+                answer: "Crop rotation"
+            },
+            {
+                question: "What is the main environmental impact of fast fashion?",
+                choices: ["Water pollution", "Textile waste", "High carbon footprint", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these is NOT a renewable resource?",
+                choices: ["Wind", "Sunlight", "Natural gas", "Geothermal heat"],
+                answer: "Natural gas"
+            },
+            {
+                question: "What is the main benefit of LED light bulbs?",
+                choices: ["They last longer", "They use less energy", "They contain no mercury", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these is the most sustainable mode of transportation?",
+                choices: ["Electric car", "Bus", "Bicycle", "Airplane"],
+                answer: "Bicycle"
+            },
+            {
+                question: "What is the main purpose of Earth Day?",
+                choices: ["Celebrate nature", "Promote environmental protection", "Plant trees", "Clean up litter"],
+                answer: "Promote environmental protection"
+            },
+            {
+                question: "Which of these is a benefit of composting?",
+                choices: ["Reduces landfill waste", "Creates nutrient-rich soil", "Reduces methane emissions", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "What is the main environmental concern with single-use plastics?",
+                choices: ["They don't biodegrade", "They harm marine life", "They require fossil fuels to produce", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these is NOT a way to make your home more energy efficient?",
+                choices: ["Adding insulation", "Sealing air leaks", "Leaving electronics plugged in", "Using a programmable thermostat"],
+                answer: "Leaving electronics plugged in"
+            },
+            {
+                question: "What is the main advantage of locally grown food?",
+                choices: ["Reduces transportation emissions", "Supports local economy", "Often fresher", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these is a sustainable seafood choice?",
+                choices: ["Farmed salmon", "Bluefin tuna", "Shrimp", "Mussels"],
+                answer: "Mussels"
+            },
+            {
+                question: "What is the main environmental benefit of reusable shopping bags?",
+                choices: ["Reduce plastic waste", "Save energy in production", "Reduce litter", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these is the most water-efficient way to clean dishes?",
+                choices: ["Hand washing", "Energy Star dishwasher", "Regular dishwasher", "Using paper plates"],
+                answer: "Energy Star dishwasher"
+            },
+            {
+                question: "What is the main environmental impact of air travel?",
+                choices: ["Noise pollution", "High carbon emissions", "Air pollution", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these is NOT a sustainable packaging material?",
+                choices: ["Biodegradable plastic", "Glass", "Styrofoam", "Recycled cardboard"],
+                answer: "Styrofoam"
+            },
+            {
+                question: "What is the main environmental benefit of plant-based diets?",
+                choices: ["Lower water usage", "Less land required", "Reduced greenhouse gases", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these is the most effective way to reduce paper waste?",
+                choices: ["Recycling paper", "Using both sides", "Going digital", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "What is the main environmental concern with microbeads in personal care products?",
+                choices: ["They pollute waterways", "They harm aquatic life", "They enter the food chain", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these is a benefit of green roofs?",
+                choices: ["Reduce urban heat", "Manage stormwater", "Provide habitat", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "What is the main environmental impact of cryptocurrency mining?",
+                choices: ["High energy consumption", "E-waste", "Water usage", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these is the most sustainable choice for clothing?",
+                choices: ["Synthetic fabrics", "Organic cotton", "Leather", "Fast fashion"],
+                answer: "Organic cotton"
+            },
+            {
+                question: "What is the main environmental benefit of carpooling?",
+                choices: ["Reduces traffic", "Lowers emissions", "Saves money", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these is NOT a benefit of renewable energy?",
+                choices: ["Reduces air pollution", "Creates jobs", "Uses finite resources", "Lowers greenhouse gases"],
+                answer: "Uses finite resources"
+            },
+            {
+                question: "What is the main environmental concern with disposable diapers?",
+                choices: ["They take centuries to decompose", "They contain plastics", "They create landfill waste", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these is the most sustainable way to drink water?",
+                choices: ["Bottled water", "Filtered tap water", "Spring water", "Distilled water"],
+                answer: "Filtered tap water"
+            },
+            {
+                question: "What is the main environmental benefit of daylight saving time?",
+                choices: ["Reduces energy use", "Extends daylight hours", "Lowers emissions", "All of the above"],
+                answer: "Reduces energy use"
+            },
+            {
+                question: "Which of these is NOT a sustainable forestry practice?",
+                choices: ["Clear-cutting", "Selective logging", "Reforestation", "Certified sustainable wood"],
+                answer: "Clear-cutting"
+            },
+            {
+                question: "What is the main environmental impact of beef production?",
+                choices: ["High water usage", "Methane emissions", "Deforestation", "All of the above"],
+                answer: "All of the above"
+            },
+            {
+                question: "Which of these is the most eco-friendly way to dispose of food waste?",
+                choices: ["Landfill", "Incineration", "Composting", "Garbage disposal"],
+                answer: "Composting"
+            },
+            {
+                question: "What is the main environmental benefit of electric vehicles?",
+                choices: ["Zero tailpipe emissions", "Lower maintenance", "Quieter operation", "All of the above"],
+                answer: "Zero tailpipe emissions"
+            },
+            {
+                question: "Which of these is the most sustainable building material?",
+                choices: ["Concrete", "Steel", "Bamboo", "Plastic"],
+                answer: "Bamboo"
+            },
+            {
+                question: "What is the main environmental benefit of reusable water bottles?",
+                choices: ["Reduce plastic waste", "Save money", "Better water quality", "All of the above"],
+                answer: "Reduce plastic waste"
+            },
+            {
+                question: "Which of these is NOT a benefit of urban parks?",
+                choices: ["Reduce air pollution", "Increase property values", "Increase urban heat", "Provide recreation"],
+                answer: "Increase urban heat"
+            }
+        ];
+
+        // Quiz variables
+        const container = document.querySelector('.container');
+        const questionBox = document.querySelector('.question');
+        const choicesBox = document.querySelector('.choices');
+        const nextBtn = document.querySelector('.nextBtn');
+        const scoreCard = document.querySelector('.scoreCard');
+        const alertBox = document.querySelector('.alert');
+        const startBtn = document.querySelector('.startBtn');
+        const timer = document.querySelector('.timer');
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let quizOver = false;
+        let timeLeft = 15;
+        let timerID = null;
+        let quiz = [];
+
+        // Function to select 5 random questions from the pool
+        const selectRandomQuestions = () => {
+            // Make a copy of the question pool
+            const shuffled = [...questionPool];
+            // Shuffle the questions
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            // Select first 5 questions
+            return shuffled.slice(0, 5);
+        };
+
+        const showQuestions = () => {
+            const questionDetails = quiz[currentQuestionIndex];
+            questionBox.textContent = questionDetails.question;
+
+            choicesBox.textContent = "";
+            for (let i = 0; i < questionDetails.choices.length; i++) {
+                const currentChoice = questionDetails.choices[i];
+                const choiceDiv = document.createElement('div');
+                choiceDiv.textContent = currentChoice;
+                choiceDiv.classList.add('choice');
+                choicesBox.appendChild(choiceDiv);
+
+                choiceDiv.addEventListener('click', () => {
+                    // Remove selected class from all choices
+                    document.querySelectorAll('.choice').forEach(choice => {
+                        choice.classList.remove('selected');
+                    });
+                    // Add selected class to clicked choice
+                    choiceDiv.classList.add('selected');
+                });
+            }
+
+            if(currentQuestionIndex < quiz.length){
+                startTimer();
+            }
+        };
+
+        const checkAnswer = () => {
+            const selectedChoice = document.querySelector('.choice.selected');
+            if (!selectedChoice) {
+                displayAlert("Please select an answer!");
+                return false;
+            }
+
+            if (selectedChoice.textContent === quiz[currentQuestionIndex].answer) {
+                displayAlert("Correct Answer!");
+                score++;
+                selectedChoice.classList.add('correct');
+            } else {
+                displayAlert(`Wrong Answer! ${quiz[currentQuestionIndex].answer} is the Correct Answer`);
+                selectedChoice.classList.add('incorrect');
+                // Highlight correct answer
+                document.querySelectorAll('.choice').forEach(choice => {
+                    if (choice.textContent === quiz[currentQuestionIndex].answer) {
+                        choice.classList.add('correct');
+                    }
+                });
+            }
+
+            timeLeft = 15;
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quiz.length) {
+                setTimeout(() => {
+                    showQuestions();
+                }, 2000);
+            } else {
+                stopTimer();
+                showScore();
+            }
+            return true;
+        };
+
+        const showScore = () => {
+            questionBox.textContent = "";
+            choicesBox.textContent = "";
+            scoreCard.textContent = `You Scored ${score} out of ${quiz.length}!`;
+            
+            // Provide feedback based on score
+            let feedback = "";
+            const percentage = (score / quiz.length) * 100;
+            
+            if (percentage >= 80) {
+                feedback = "Excellent! You're an environmental expert!";
+            } else if (percentage >= 60) {
+                feedback = "Good job! You know quite a bit about sustainability.";
+            } else if (percentage >= 40) {
+                feedback = "Not bad! Keep learning about environmental issues.";
+            } else {
+                feedback = "Keep trying! The planet needs more eco-conscious people like you.";
+            }
+            
+            displayAlert(feedback);
+            nextBtn.textContent = "Play Again";
+            quizOver = true;
+            timer.style.display = "none";
+        };
+
+        const displayAlert = (msg) => {
+            alertBox.style.display = "block";
+            alertBox.textContent = msg;
+            setTimeout(() => {
+                alertBox.style.display = "none";
+            }, 2000);
+        };
+
+        // Function to Start Timer
+        const startTimer = () => {
+            clearInterval(timerID); // Clear any existing timers
+            timer.textContent = timeLeft;
+            timer.style.display = "flex";
+
+            const countDown = () => {
+                timeLeft--;
+                timer.textContent = timeLeft;
+                if(timeLeft === 0){
+                    const confirmUser = confirm("Time Up!!! Do you want to play the quiz again?");
+                    if(confirmUser){
+                        resetQuiz();
+                    } else {
+                        startBtn.style.display = "block";
+                        container.style.display = "none";
+                        return;
+                    }
+                }
+            };
+            timerID = setInterval(countDown, 1000);
+        };
+
+        // Function to Stop Timer
+        const stopTimer = () => {
+            clearInterval(timerID);
+        };
+
+        // Function to reset the quiz
+        const resetQuiz = () => {
+            currentQuestionIndex = 0;
+            score = 0;
+            quizOver = false;
+            timeLeft = 15;
+            quiz = selectRandomQuestions();
+            nextBtn.textContent = "Next";
+            scoreCard.textContent = "";
+            timer.style.display = "flex";
+            showQuestions();
+        };
+
+        // Function to Start Quiz
+        const startQuiz = () => {
+            quiz = selectRandomQuestions();
+            resetQuiz();
+        };
+
+        // Adding Event Listener to Start Button
+        startBtn.addEventListener('click', () => {
+            startBtn.style.display = "none";
+            container.style.display = "block";
+            startQuiz();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (quizOver) {
+                resetQuiz();
+            } else {
+                checkAnswer();
+            }
+        });
+    </script>
+</body>
+</html>

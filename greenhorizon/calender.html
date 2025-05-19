@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events Calendar | Green Horizon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Calendar Page Specific Styles */
+        .calendar-hero {
+            background: linear-gradient(135deg, rgba(20, 120, 80, 0.9) 0%, rgba(10, 80, 60, 0.9) 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .calendar-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        .calendar-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .calendar-hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .back-to-home {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-home:hover {
+            transform: translateX(-5px);
+        }
+        
+        .calendar-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .calendar-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .calendar-title {
+            font-family: 'Playfair Display', serif;
+            color: #2c3e50;
+            font-size: 2rem;
+        }
+        
+        .calendar-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .calendar-btn {
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .calendar-btn:hover {
+            background: #f5f5f5;
+        }
+        
+        .calendar-btn.primary {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+        
+        .calendar-btn.primary:hover {
+            background: #219653;
+        }
+        
+        #calendar {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* FullCalendar Customization */
+        .fc .fc-toolbar-title {
+            font-family: 'Playfair Display', serif;
+            color: #2c3e50;
+            font-size: 1.5rem;
+        }
+        
+        .fc .fc-button {
+            background: white;
+            border: 1px solid #e0e0e0;
+            color: #555;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .fc .fc-button:hover {
+            background: #f5f5f5;
+        }
+        
+        .fc .fc-button-primary:not(:disabled).fc-button-active {
+            background: #27ae60;
+            border-color: #27ae60;
+        }
+        
+        .fc .fc-daygrid-day-number {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .fc .fc-daygrid-event {
+            border-radius: 6px;
+            padding: 3px 6px;
+            font-size: 0.9rem;
+        }
+        
+        .fc .fc-daygrid-event-dot {
+            display: none;
+        }
+        
+        .fc-event {
+            border-color: transparent;
+        }
+        
+        .fc-event.task {
+            background: #3498db;
+            border-color: #3498db;
+        }
+        
+        .fc-event.event {
+            background: #27ae60;
+            border-color: #27ae60;
+        }
+        
+        .fc-event.challenge {
+            background: #e67e22;
+            border-color: #e67e22;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .modal-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: #2c3e50;
+            font-size: 1.8rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #27ae60;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2);
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background: white;
+            border: 1px solid #e0e0e0;
+            color: #555;
+        }
+        
+        .btn-secondary:hover {
+            background: #f5f5f5;
+        }
+        
+        .btn-primary {
+            background: #27ae60;
+            border: 1px solid #27ae60;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #219653;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Toolbar -->
+    <div class="top-toolbar">
+        <div class="toolbar-container">
+            <a href="carbonfoot.html" class="tool-btn">
+                <i class="fas fa-calculator"></i>
+                Carbon Footprint
+            </a>
+            <a href="quiz.html" class="tool-btn">
+                <i class="fas fa-question-circle"></i>
+                Eco Quiz
+            </a>
+            <a href="blogs.html" class="tool-btn">
+                <i class="fas fa-newspaper"></i>
+                Blogs
+            </a>
+            <a href="#" class="tool-btn">
+                <i class="fas fa-chart-line"></i>
+                Progress Tracker
+            </a>
+            <a href="challenges.html" class="tool-btn">
+                <i class="fas fa-leaf"></i>
+                Challenges
+            </a>
+            <a href="product.html" class="tool-btn">
+                <i class="fas fa-shopping-bag"></i>
+                Eco Products
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="home.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="logo-text">Green<span>Horizon</span></div>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#">Solutions</a></li>
+                    <li><a href="#">Impact</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </nav>
+            
+            
+        </div>
+    </header>
+
+    <!-- Calendar Hero Section -->
+    <section class="calendar-hero">
+        <a href="home.html" class="back-to-home">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        <div class="container">
+            <h1>Events Calendar</h1>
+            <p>Plan your sustainability journey with our interactive calendar of events, challenges, and personal tasks</p>
+        </div>
+    </section>
+
+    <!-- Calendar Content -->
+    <div class="calendar-container">
+        <div class="calendar-actions">
+            <h2 class="calendar-title">My Sustainability Planner</h2>
+            <div class="calendar-buttons">
+                <button class="calendar-btn" id="todayBtn">
+                    <i class="fas fa-calendar-day"></i> Today
+                </button>
+                <button class="calendar-btn primary" id="addEventBtn">
+                    <i class="fas fa-plus"></i> Add Event
+                </button>
+            </div>
+        </div>
+        
+        <div id="calendar"></div>
+    </div>
+
+    <!-- Add Event Modal -->
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Event</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="eventForm">
+                <div class="form-group">
+                    <label for="eventTitle">Title</label>
+                    <input type="text" id="eventTitle" placeholder="Enter event title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventType">Type</label>
+                    <select id="eventType" required>
+                        <option value="event">Event</option>
+                        <option value="task">Task</option>
+                        <option value="challenge">Challenge</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventStart">Start Date & Time</label>
+                    <input type="datetime-local" id="eventStart" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventEnd">End Date & Time</label>
+                    <input type="datetime-local" id="eventEnd">
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventDescription">Description</label>
+                    <textarea id="eventDescription" placeholder="Enter event details"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelEvent">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize calendar
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: [
+                    {
+                        title: 'Community Cleanup',
+                        start: new Date(),
+                        type: 'event',
+                        className: 'event'
+                    },
+                    {
+                        title: 'Complete Carbon Quiz',
+                        start: new Date(new Date().setDate(new Date().getDate() + 2)),
+                        type: 'task',
+                        className: 'task'
+                    },
+                    {
+                        title: 'Plastic-Free Challenge',
+                        start: new Date(new Date().setDate(new Date().getDate() + 5)),
+                        end: new Date(new Date().setDate(new Date().getDate() + 12)),
+                        type: 'challenge',
+                        className: 'challenge'
+                    }
+                ],
+                dateClick: function(info) {
+                    openModal(info.dateStr);
+                },
+                eventClick: function(info) {
+                    const event = info.event;
+                    alert('Event: ' + event.title + '\nStart: ' + event.start.toLocaleString());
+                }
+            });
+            calendar.render();
+            
+            // Today button
+            document.getElementById('todayBtn').addEventListener('click', function() {
+                calendar.today();
+            });
+            
+            // Modal elements
+            const modal = document.getElementById('eventModal');
+            const addEventBtn = document.getElementById('addEventBtn');
+            const closeModal = document.querySelector('.close-modal');
+            const cancelEvent = document.getElementById('cancelEvent');
+            const eventForm = document.getElementById('eventForm');
+            
+            // Open modal for new event
+            addEventBtn.addEventListener('click', function() {
+                openModal();
+            });
+            
+            // Close modal
+            closeModal.addEventListener('click', closeModalFunc);
+            cancelEvent.addEventListener('click', closeModalFunc);
+            
+            // Handle form submission
+            eventForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const title = document.getElementById('eventTitle').value;
+                const type = document.getElementById('eventType').value;
+                const start = document.getElementById('eventStart').value;
+                const end = document.getElementById('eventEnd').value;
+                const description = document.getElementById('eventDescription').value;
+                
+                const newEvent = {
+                    title: title,
+                    start: start,
+                    end: end || null,
+                    type: type,
+                    className: type,
+                    description: description
+                };
+                
+                calendar.addEvent(newEvent);
+                closeModalFunc();
+                eventForm.reset();
+            });
+            
+            // Open modal function
+            function openModal(dateStr = '') {
+                if (dateStr) {
+                    document.getElementById('eventStart').value = dateStr + 'T12:00';
+                } else {
+                    const now = new Date();
+                    const year = now.getFullYear();
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const hours = String(now.getHours()).padStart(2, '0');
+                    const minutes = String(now.getMinutes()).padStart(2, '0');
+                    
+                    document.getElementById('eventStart').value = `${year}-${month}-${day}T${hours}:${minutes}`;
+                }
+                
+                modal.style.display = 'flex';
+            }
+            
+            // Close modal function
+            function closeModalFunc() {
+                modal.style.display = 'none';
+                eventForm.reset();
+            }
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModalFunc();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

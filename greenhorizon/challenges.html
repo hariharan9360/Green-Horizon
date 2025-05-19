@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Horizon - Challenges</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.css">
+    <link rel="stylesheet" href="challenges.css">
+</head>
+<body>
+    <!-- Top Toolbar -->
+    <div class="top-toolbar">
+        <div class="toolbar-container">
+            <a href="goal.html" class="tool-btn">
+                <i class="fas fa-calendar-check"></i>
+                goal
+            </a>
+            <a href="carbonfoot.html" class="tool-btn">
+                <i class="fas fa-calculator"></i>
+                Carbon Footprint
+            </a>
+            <a href="quiz.html" class="tool-btn">
+                <i class="fas fa-question-circle"></i>
+                Eco Quiz
+            </a>
+            <a href="blogs.html" class="tool-btn">
+                <i class="fas fa-newspaper"></i>
+                Blogs
+            </a>
+            <a href="calender.html" class="tool-btn">
+                <i class="fas fa-calculator"></i>
+                Event Calender
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="logo-text">Green<span>Horizon</span></div>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#">Solutions</a></li>
+                    <li><a href="#">Impact</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </nav>
+            
+        </div>
+    </header>
+
+    <div class="challenges-container">
+        <!-- Motivation Section -->
+        <section class="motivation-section">
+            <div class="motivation-content">
+                <h2>Daily Eco-Challenges</h2>
+                <p>Complete challenges to build sustainable habits and track your environmental impact</p>
+            </div>
+            <div class="motivation-avatar" id="motivationAvatar">
+                <div class="avatar-image">
+                    <img src="https://i.imgur.com/JYw6T2f.png" alt="Eco Avatar">
+                    <div class="avatar-badge">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                </div>
+                <div class="avatar-message">
+                    <p id="avatarMessage">Every small action makes a difference! Let's protect our planet together.</p>
+                    <div class="avatar-author">- Eco Guide</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Overview -->
+        <section class="progress-section">
+            <div class="section-header">
+                <h2>Your Sustainability Progress</h2>
+                <p>Track your completed challenges and environmental impact</p>
+            </div>
+            
+            <div class="progress-cards">
+                <div class="progress-card">
+                    <div class="progress-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="progress-info">
+                        <h3>Challenges Completed</h3>
+                        <div class="progress-number" id="completedCount">0</div>
+                        <div class="progress-subtext">This Month</div>
+                    </div>
+                </div>
+                
+                <div class="progress-card">
+                    <div class="progress-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="progress-info">
+                        <h3>Impact Score</h3>
+                        <div class="progress-number" id="impactScore">0</div>
+                        <div class="progress-subtext">CO₂ Reduced (kg)</div>
+                    </div>
+                </div>
+                
+                <div class="progress-card chart-card">
+                    <div class="progress-info">
+                        <h3>Weekly Completion</h3>
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Challenges List -->
+        <section class="challenges-list-section">
+            <div class="section-header">
+                <div class="header-title">
+                    <h2>Today's Challenges</h2>
+                    <button class="add-challenge-btn" id="addChallengeBtn">
+                        <i class="fas fa-plus"></i> Add Custom Challenge
+                    </button>
+                </div>
+                <p>Complete these tasks to earn points and reduce your environmental impact</p>
+            </div>
+            
+            <div class="challenges-grid" id="challengesGrid">
+                <!-- Challenges will be added here by JavaScript -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Add Challenge Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="add-challenge-modal">
+            <div class="modal-header">
+                <h3>Create Custom Challenge</h3>
+                <button class="close-modal" id="closeModalBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="challengeTitle">Challenge Title</label>
+                    <input type="text" id="challengeTitle" placeholder="e.g. Use a reusable water bottle">
+                </div>
+                <div class="form-group">
+                    <label for="challengeDescription">Description (Optional)</label>
+                    <textarea id="challengeDescription" rows="3" placeholder="Describe your challenge..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="challengeImpact">Estimated Impact</label>
+                    <select id="challengeImpact">
+                        <option value="5">Small (5 CO₂ kg/month)</option>
+                        <option value="15" selected>Medium (15 CO₂ kg/month)</option>
+                        <option value="30">Large (30 CO₂ kg/month)</option>
+                        <option value="50">Extra Large (50+ CO₂ kg/month)</option>
+                    </select>
+                </div>
+                <button class="submit-challenge-btn" id="submitChallengeBtn">
+                    <i class="fas fa-check"></i> Add Challenge
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="challenges.js"></script>
+</body>
+</html>

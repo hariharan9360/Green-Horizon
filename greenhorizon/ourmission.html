@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Mission | Green Horizon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles for mission page */
+        .mission-hero {
+            background: linear-gradient(135deg, rgba(10, 80, 60, 0.9) 0%, rgba(20, 120, 80, 0.85) 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mission-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        .mission-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .mission-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+        
+        .back-to-home {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-home:hover {
+            transform: translateX(-5px);
+        }
+        
+        .mission-content {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .mission-statement {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .mission-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+            padding: 50px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mission-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #2ecc71 0%, #27ae60 100%);
+        }
+        
+        .mission-card h2 {
+            font-family: 'Playfair Display', serif;
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .mission-card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #27ae60;
+        }
+        
+        .mission-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 25px;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .value-item {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .value-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .value-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        .value-item h3 {
+            font-family: 'Playfair Display', serif;
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .value-item p {
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        .impact-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .impact-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+        
+        .impact-stats {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            min-width: 200px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #2ecc71;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .call-to-action {
+            padding: 80px 0;
+            text-align: center;
+            background-color: white;
+        }
+        
+        .call-to-action h2 {
+            font-family: 'Playfair Display', serif;
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .call-to-action p {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+        
+        .btn-mission {
+            display: inline-block;
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
+        }
+        
+        .btn-mission:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(39, 174, 96, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Toolbar -->
+    <div class="top-toolbar">
+        <div class="toolbar-container">
+            <a href="carbonfoot.html" class="tool-btn">
+                <i class="fas fa-calculator"></i>
+                Carbon Footprint
+            </a>
+            <a href="quiz.html" class="tool-btn">
+                <i class="fas fa-question-circle"></i>
+                Eco Quiz
+            </a>
+            <a href="blogs.html" class="tool-btn">
+                <i class="fas fa-newspaper"></i>
+                Blogs
+            </a>
+            <a href="#" class="tool-btn">
+                <i class="fas fa-chart-line"></i>
+                Progress Tracker
+            </a>
+            <a href="challenges.html" class="tool-btn">
+                <i class="fas fa-leaf"></i>
+                Challenges
+            </a>
+            <a href="product.html" class="tool-btn">
+                <i class="fas fa-shopping-bag"></i>
+                Eco Products
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="home.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="logo-text">Green<span>Horizon</span></div>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#">Solutions</a></li>
+                    <li><a href="#">Impact</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="#" class="btn-nav btn-nav-outline">Log In</a>
+                <a href="#" class="btn-nav btn-nav-filled">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mission Hero Section -->
+    <section class="mission-hero">
+        <a href="home.html" class="back-to-home">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        <div class="container">
+            <h1>Our Mission</h1>
+            <p>Empowering individuals and communities to create a sustainable future through education, innovation, and collective action.</p>
+        </div>
+    </section>
+
+    <!-- Mission Content Section -->
+    <section class="mission-content">
+        <div class="mission-statement">
+            <div class="mission-card">
+                <h2>Why We Exist</h2>
+                <p>At Green Horizon, we believe that every individual has the power to make a difference in the fight against climate change. Founded in 2020, our platform was born from a simple yet powerful idea: sustainability should be accessible, actionable, and rewarding for everyone.</p>
+                <p>We recognize that the environmental challenges we face are complex, but we also know that solutions exist. Our mission is to bridge the gap between awareness and action by providing the tools, knowledge, and community support needed to turn good intentions into measurable impact.</p>
+            </div>
+            
+            <div class="mission-card">
+                <h2>Our Vision</h2>
+                <p>We envision a world where sustainable living is not just an option, but the natural choice for individuals, communities, and businesses. A world where environmental responsibility is seamlessly integrated into daily life, creating healthier ecosystems and more resilient communities.</p>
+                <p>By 2030, we aim to empower 10 million people to reduce their carbon footprint by at least 50%, creating a collective impact that will help stabilize our climate and preserve biodiversity for future generations.</p>
+            </div>
+            
+            <h2 style="text-align: center; margin-bottom: 40px;">Our Core Values</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>We constantly seek creative solutions to environmental challenges, leveraging technology and design to make sustainability simple and engaging.</p>
+                </div>
+                
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Community</h3>
+                    <p>We believe change happens together. Our platform fosters connections and collaborations that amplify individual actions into collective impact.</p>
+                </div>
+                
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Measurable Impact</h3>
+                    <p>We focus on tangible results, providing tools that track progress and demonstrate the real environmental benefits of sustainable choices.</p>
+                </div>
+                
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Education</h3>
+                    <p>We empower through knowledge, offering science-based information that helps people understand their environmental impact and how to reduce it.</p>
+                </div>
+                
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Integrity</h3>
+                    <p>We maintain transparency in our operations, use evidence-based approaches, and hold ourselves accountable to our mission and community.</p>
+                </div>
+                
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Optimism</h3>
+                    <p>We approach environmental challenges with hope and determination, believing in humanity's capacity to create positive change.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact-section">
+        <h2>Our Collective Impact</h2>
+        <div class="impact-stats">
+            <div class="stat-item">
+                <div class="stat-number">500K+</div>
+                <div class="stat-label">Community Members</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">2.7M</div>
+                <div class="stat-label">Tons of CO2 Reduced</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">120+</div>
+                <div class="stat-label">Countries Reached</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15K</div>
+                <div class="stat-label">Sustainability Goals Achieved</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="call-to-action">
+        <h2>Join Our Movement</h2>
+        <p>Become part of a growing community committed to creating a sustainable future. Together, we can make a difference.</p>
+        <a href="#" class="btn-mission">Get Started Today</a>
+    </section>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

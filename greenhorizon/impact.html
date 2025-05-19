@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Environmental Impact Timeline</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --primary-dark: #27ae60;
+            --secondary: #3498db;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Premium Back Button */
+        .back-home {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            z-index: 100;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .back-home .button-circle {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .back-home .button-text {
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .back-home:hover .button-circle {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+        
+        .back-home:hover .button-text {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .back-home i {
+            color: white;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .back-home:hover i {
+            transform: translateX(-3px);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.9), rgba(39, 174, 96, 0.95));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1615874694520-8229a7f5d15f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+        .header h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto 80px;
+            padding: 40px 0;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+        
+        .era {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 60px;
+        }
+        
+        .era::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -12px;
+        }
+        
+        .right::after {
+            left: -12px;
+        }
+        
+        .era-content {
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+        
+        .era-content::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            top: 20px;
+        }
+        
+        .left .era-content::before {
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+            right: -10px;
+        }
+        
+        .right .era-content::before {
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+            left: -10px;
+        }
+        
+        .era-title {
+            font-family: 'Merriweather', serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .era-title i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .era-subtitle {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .impact-list {
+            list-style-type: none;
+            margin-bottom: 20px;
+        }
+        
+        .impact-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .impact-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .turning-point {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .turning-point strong {
+            color: var(--primary-dark);
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+        
+        /* Call to Action */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.9), rgba(41, 128, 185, 0.95));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin: 60px 0;
+            border-radius: 10px;
+        }
+        
+        .cta-section h2 {
+            font-family: 'Merriweather', serif;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--secondary);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .era {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .era::after {
+                left: 18px;
+            }
+            
+            .left::after, .right::after {
+                left: 18px;
+            }
+            
+            .right {
+                left: 0;
+            }
+            
+            .left .era-content::before, .right .era-content::before {
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+                left: -10px;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .era-title {
+                font-size: 1.5rem;
+            }
+            
+            .back-home {
+                top: 20px;
+                left: 20px;
+            }
+            
+            .back-home .button-circle {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Premium Back Button -->
+    <a href="home.html" class="back-home">
+        <div class="button-circle">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="button-text">Back to Home</div>
+    </a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>Global Environmental Impact Timeline</h1>
+            <p>How human activity has reshaped our planet over the decades - and what we can do about it</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Timeline -->
+        <div class="timeline">
+            <!-- 1950s-1970s -->
+            <div class="era left">
+                <div class="era-content">
+                    <h2 class="era-title"><i class="fas fa-industry"></i> 1950s-1970s</h2>
+                    <p class="era-subtitle">The Dawn of Mass Consumption & Pollution</p>
+                    <ul class="impact-list">
+                        <li><strong>Industrial Boom</strong> – Post-WWII economic growth led to massive increases in manufacturing, fossil fuel use, and waste</li>
+                        <li><strong>First Major Oil Spills</strong> – The 1967 Torrey Canyon (UK) and 1969 Santa Barbara (USA) spills exposed dangers of offshore drilling</li>
+                        <li><strong>Air Pollution Crisis</strong> – Cities like London and Los Angeles suffered deadly smog events</li>
+                        <li><strong>DDT & Pesticide Scare</strong> – Rachel Carson's Silent Spring (1962) revealed pesticides devastating wildlife</li>
+                    </ul>
+                    <div class="turning-point">
+                        <strong>Turning Point:</strong> The first Earth Day (1970) marked the birth of the modern environmental movement.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 1980s-1990s -->
+            <div class="era right">
+                <div class="era-content">
+                    <h2 class="era-title"><i class="fas fa-fire"></i> 1980s-1990s</h2>
+                    <p class="era-subtitle">Climate Change Enters the Spotlight</p>
+                    <ul class="impact-list">
+                        <li><strong>Ozone Layer Hole Discovered (1985)</strong> – Caused by CFCs, leading to the Montreal Protocol (1987)</li>
+                        <li><strong>Deforestation Accelerates</strong> – The Amazon lost 20% of its forest cover by 2000</li>
+                        <li><strong>Plastic Waste Surge</strong> – Single-use plastics became mainstream</li>
+                        <li><strong>Biodiversity Collapse</strong> – The 1992 Earth Summit warned of mass extinctions</li>
+                    </ul>
+                    <div class="turning-point">
+                        <strong>Turning Point:</strong> The Kyoto Protocol (1997) was the first global attempt to reduce emissions.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2000s-2010s -->
+            <div class="era left">
+                <div class="era-content">
+                    <h2 class="era-title"><i class="fas fa-temperature-high"></i> 2000s-2010s</h2>
+                    <p class="era-subtitle">The Climate Emergency Era</p>
+                    <ul class="impact-list">
+                        <li><strong>Extreme Weather Events</strong> – Hurricanes (Katrina, Sandy), wildfires, and heatwaves became more frequent</li>
+                        <li><strong>Arctic Ice Melting</strong> – 40% of Arctic summer ice disappeared since 1980</li>
+                        <li><strong>Ocean Acidification</strong> – CO₂ absorption made oceans 30% more acidic</li>
+                        <li><strong>Microplastics Everywhere</strong> – Found in rain, seafood, and human organs</li>
+                    </ul>
+                    <div class="turning-point">
+                        <strong>Turning Point:</strong> The Paris Agreement (2015) set climate targets, but many nations failed to meet them.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2020s-Present -->
+            <div class="era right">
+                <div class="era-content">
+                    <h2 class="era-title"><i class="fas fa-exclamation-triangle"></i> 2020s-Present</h2>
+                    <p class="era-subtitle">Tipping Points & Last Chances</p>
+                    <ul class="impact-list">
+                        <li><strong>Hottest Years on Record</strong> – 2023 was the hottest year ever recorded</li>
+                        <li><strong>Plastic Pollution Crisis</strong> – By 2050, more plastic than fish in oceans by weight</li>
+                        <li><strong>Biodiversity Collapse</strong> – 69% decline in wildlife since 1970 (WWF 2022)</li>
+                        <li><strong>Deforestation Continues</strong> – Amazon now emits more CO₂ than it absorbs</li>
+                    </ul>
+                    <div class="turning-point">
+                        <strong>Turning Point:</strong> The 2023 UN Climate Report warned that 1.5°C warming is now unavoidable.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Key Statistics -->
+        <h2 style="text-align: center; font-family: 'Merriweather', serif; margin-bottom: 30px; color: var(--dark);">By The Numbers</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">+1.2°C</div>
+                <div class="stat-label">Global temperature rise since pre-industrial times</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">69%</div>
+                <div class="stat-label">Decline in wildlife populations since 1970</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">400M</div>
+                <div class="stat-label">Tons of plastic waste produced annually</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">17%</div>
+                <div class="stat-label">Amazon rainforest lost since 1970</div>
+            </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2>There's Still Hope</h2>
+            <p>While the damage is severe, humanity has shown we can change course when we act collectively. The next decade will decide whether we stabilize Earth's systems or push them past the point of no return.</p>
+            <a href="#" class="cta-button">Learn How You Can Help</a>
+        </div>
+        
+        <!-- Future Section -->
+        <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08); margin-bottom: 60px;">
+            <h2 style="font-family: 'Merriweather', serif; margin-bottom: 20px; color: var(--dark);">The Path Forward</h2>
+            <p style="margin-bottom: 20px;">Positive developments show we can still make a difference:</p>
+            <ul style="list-style-type: none; margin-bottom: 20px;">
+                <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary); font-weight: bold;">→</span>
+                    <strong>Renewable energy adoption</strong> (solar/wind) is accelerating worldwide
+                </li>
+                <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary); font-weight: bold;">→</span>
+                    <strong>Circular economy</strong> movements are reducing waste through recycling and reuse
+                </li>
+                <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary); font-weight: bold;">→</span>
+                    <strong>Regenerative agriculture</strong> is restoring degraded land and improving soil health
+                </li>
+                <li style="margin-bottom: 15px; padding-left: 25px; position: relative;">
+                    <span style="position: absolute; left: 0; color: var(--primary); font-weight: bold;">→</span>
+                    <strong>Youth-led climate activism</strong> is pushing governments and corporations to act
+                </li>
+            </ul>
+            <p style="font-style: italic;">"The greatest threat to our planet is the belief that someone else will save it." — Robert Swan</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2023 Environmental Impact Timeline</p>
+            <div class="footer-links">
+                <a href="#">Sources</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+            <p>Made with <i class="fas fa-heart" style="color: #e74c3c;"></i> for our planet</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animate the back button text on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const backButton = document.querySelector('.back-home');
+            
+            // Show text after a short delay
+            setTimeout(() => {
+                backButton.querySelector('.button-text').style.opacity = '1';
+                backButton.querySelector('.button-text').style.transform = 'translateX(0)';
+            }, 1000);
+            
+            // Hide text when mouse leaves (optional)
+            backButton.addEventListener('mouseleave', function() {
+                this.querySelector('.button-text').style.opacity = '0';
+                this.querySelector('.button-text').style.transform = 'translateX(-10px)';
+            });
+            
+            // Show again when mouse enters
+            backButton.addEventListener('mouseenter', function() {
+                this.querySelector('.button-text').style.opacity = '1';
+                this.querySelector('.button-text').style.transform = 'translateX(0)';
+            });
+        });
+    </script>
+</body>
+</html>

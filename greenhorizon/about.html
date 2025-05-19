@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Green Horizon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* About Us Specific Styles */
+        .about-hero {
+            background: linear-gradient(135deg, rgba(20, 120, 80, 0.9) 0%, rgba(10, 80, 60, 0.9) 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1518176258769-f227c798150e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80') center/cover no-repeat;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        .about-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .about-hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .back-to-home {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-home:hover {
+            transform: translateX(-5px);
+        }
+        
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+        
+        .about-section {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+        
+        .about-section.reverse {
+            flex-direction: row-reverse;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            height: 400px;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .about-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #27ae60;
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 25px;
+        }
+        
+        .team-section {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .team-section h2 {
+            font-family: 'Playfair Display', serif;
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .team-member {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 5px solid #f1f1f1;
+        }
+        
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-member h3 {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .team-member p.position {
+            color: #27ae60;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .team-member p.bio {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: #555;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: #27ae60;
+        }
+        
+        .cta-section {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+        }
+        
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .btn-cta {
+            display: inline-block;
+            background: white;
+            color: #2c3e50;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Toolbar -->
+    <div class="top-toolbar">
+        <div class="toolbar-container">
+            <a href="carbonfoot.html" class="tool-btn">
+                <i class="fas fa-calculator"></i>
+                Carbon Footprint
+            </a>
+            <a href="quiz.html" class="tool-btn">
+                <i class="fas fa-question-circle"></i>
+                Eco Quiz
+            </a>
+            <a href="blogs.html" class="tool-btn">
+                <i class="fas fa-newspaper"></i>
+                Blogs
+            </a>
+            <a href="#" class="tool-btn">
+                <i class="fas fa-chart-line"></i>
+                Progress Tracker
+            </a>
+            <a href="challenges.html" class="tool-btn">
+                <i class="fas fa-leaf"></i>
+                Challenges
+            </a>
+            <a href="product.html" class="tool-btn">
+                <i class="fas fa-shopping-bag"></i>
+                Eco Products
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="home.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="logo-text">Green<span>Horizon</span></div>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#">Solutions</a></li>
+                    <li><a href="#">Impact</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="#" class="btn-nav btn-nav-outline">Log In</a>
+                <a href="#" class="btn-nav btn-nav-filled">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <a href="home.html" class="back-to-home">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        <div class="container">
+            <h1>About Green Horizon</h1>
+            <p>Pioneering sustainable solutions through innovation, education, and community action</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <div class="about-content">
+        <div class="about-section">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1526779259212-939e64788e3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" alt="Our Story">
+            </div>
+            <div class="about-text">
+                <h2>Our Story</h2>
+                <p>Founded in 2024, Green Horizon began as a small team of environmental enthusiasts determined to bridge the gap between sustainability knowledge and action. Today, we've grown into a global platform empowering individuals and businesses to make meaningful environmental changes.</p>
+                <p>What started as a simple carbon calculator has evolved into a comprehensive ecosystem of tools, resources, and community support designed to make sustainable living accessible to everyone.</p>
+            </div>
+        </div>
+        
+        <div class="about-section reverse">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1508784411316-02b8cd4d3a3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Our Approach">
+            </div>
+            <div class="about-text">
+                <h2>Our Approach</h2>
+                <p>We believe sustainability should be simple, rewarding, and data-driven. Our platform combines cutting-edge technology with behavioral science to create tools that inspire real change.</p>
+                <p>By focusing on measurable impact, personalized recommendations, and community support, we help users turn environmental intentions into lasting habits.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <h2>Meet Our Leadership</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-photo">
+                    <img src="/DSC_0146.JPG" alt="hariharan">
+                </div>
+                <h3>Hariharan J</h3>
+                <p class="position">Founder</p>
+                <p class="bio">Environmental scientist with 4 years of experience in sustainability consulting and climate policy.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-photo">
+                    <img src="/profile pic.jpg" alt="Harish Ram ">
+                </div>
+                <h3>Harish Ram V</h3>
+                <p class="position">CEO</p>
+                <p class="bio">Tech innovator specializing in environmental data visualization and impact measurement.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            
+           
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Make an Impact?</h2>
+        <p>Join our community of changemakers and start your sustainability journey today.</p>
+        <a href="#" class="btn-cta">Get Started</a>
+    </section>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

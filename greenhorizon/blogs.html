@@ -1,0 +1,2236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Horizon - Environmental Articles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #1a3a32;
+            --dark-green: #0d2721;
+            --light-green: #4a8c7d;
+            --lighter-green: #e8f0ee;
+            --accent-teal: #2a9d8f;
+            --gold: #e9c46a;
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            --section-padding: 6rem 2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--lighter-green);
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Premium Navigation */
+        .top-toolbar {
+            background-color: var(--primary-green);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .toolbar-container {
+            display: flex;
+            gap: 1.5rem;
+            max-width: 1400px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-btn:hover {
+            background-color: var(--accent-teal);
+            transform: translateY(-2px);
+        }
+
+        .tool-btn i {
+            font-size: 0.9rem;
+        }
+
+        header {
+            background-color: white;
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background-color: var(--primary-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            transform: rotate(15deg);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.7rem;
+            color: var(--primary-green);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-teal);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            height: 100%;
+        }
+
+        nav li {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            padding: 1.5rem 0.5rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary-green);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent-teal);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-nav {
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+        }
+
+        .btn-nav-outline {
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .btn-nav-outline:hover {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .btn-nav-filled {
+            background-color: var(--primary-green);
+            color: white;
+            box-shadow: 0 4px 15px rgba(42, 92, 82, 0.3);
+        }
+
+        .btn-nav-filled:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 58, 50, 0.9) 0%, rgba(42, 157, 143, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 3rem;
+            border-radius: 12px;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--text-dark);
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: #f4a261;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* Articles Section */
+        .articles {
+            padding: var(--section-padding);
+            background-color: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--gold);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .articles-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            background-color: var(--lighter-green);
+            color: var(--primary-green);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .category-btn.active {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .category-btn:hover:not(.active) {
+            background-color: #d6e5e1;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .article-card {
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .article-card:hover .article-image img {
+            transform: scale(1.05);
+        }
+
+        .article-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--gold);
+            color: var(--text-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .article-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-date {
+            color: var(--accent-teal);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+            line-height: 1.3;
+        }
+
+        .article-excerpt {
+            color: #666;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .article-source {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .article-source img {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .read-more {
+            color: var(--accent-teal);
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            color: var(--primary-green);
+            transform: translateX(5px);
+        }
+
+        .read-more i {
+            font-size: 0.8rem;
+        }
+
+        /* Featured Articles Slider */
+        .featured-slider {
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .featured-slider-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-slide {
+            position: relative;
+            height: 500px;
+            display: none;
+            cursor: pointer;
+        }
+
+        .featured-slide.active {
+            display: block;
+        }
+
+        .featured-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 3rem;
+            color: white;
+        }
+
+        .featured-category {
+            background-color: var(--gold);
+            color: var(--text-dark);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .featured-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .featured-excerpt {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            max-width: 800px;
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .slider-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-btn:hover {
+            background-color: var(--gold);
+            color: var(--text-dark);
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background-color: var(--lighter-green);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter h3 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex-grow: 1;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+        }
+
+        .newsletter-btn {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 0 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background-color: var(--dark-green);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background-color: white;
+            color: var(--text-dark);
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: -5px 0 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.open {
+            right: 0;
+        }
+
+        .sidebar-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-sidebar:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 2rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.8rem;
+        }
+
+        .sidebar-menu a {
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            transition: var(--transition);
+            font-weight: 500;
+            background-color: var(--lighter-green);
+        }
+
+        .sidebar-menu a:hover {
+            background-color: var(--primary-green);
+            color: white;
+            transform: translateX(10px);
+        }
+
+        .sidebar-menu i {
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .sidebar-menu a:hover i {
+            color: var(--gold);
+        }
+
+        .toggle-sidebar {
+            position: fixed;
+            right: 30px;
+            top: 180px;
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 10px 30px rgba(26, 58, 50, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .toggle-sidebar:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-green);
+            color: var(--text-light);
+            padding: 5rem 2rem 2rem;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+
+        .footer-col p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0.9;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            transform: translateX(5px);
+            color: var(--gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background-color: var(--gold);
+            color: var(--text-dark);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .leaf-decoration {
+            position: absolute;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .leaf-1 {
+            top: 50px;
+            left: 50px;
+            font-size: 10rem;
+            transform: rotate(15deg);
+        }
+
+        .leaf-2 {
+            bottom: 100px;
+            right: 100px;
+            font-size: 8rem;
+            transform: rotate(-20deg);
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--lighter-green);
+            border-top-color: var(--accent-teal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Article Detail View */
+        .article-detail {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 4rem 2rem;
+        }
+
+        .article-detail.active {
+            display: block;
+        }
+
+        .article-detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .close-article {
+            position: absolute;
+            top: -3rem;
+            right: 0;
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .close-article:hover {
+            background-color: var(--dark-green);
+            transform: rotate(90deg);
+        }
+
+        .article-detail-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .article-detail-category {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--text-dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .article-detail-title {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .article-detail-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        .article-detail-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .article-detail-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .article-detail-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .article-detail-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .article-detail-content h2, 
+        .article-detail-content h3 {
+            color: var(--primary-green);
+            margin: 2rem 0 1rem;
+        }
+
+        .article-detail-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .article-detail-content blockquote {
+            border-left: 4px solid var(--accent-teal);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero {
+                height: 450px;
+            }
+            
+            .hero h2 {
+                font-size: 2.6rem;
+            }
+
+            .featured-slide {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-container {
+                height: 70px;
+            }
+
+            .hero {
+                height: 400px;
+            }
+
+            .hero h2 {
+                font-size: 2.4rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.4rem;
+            }
+
+            .featured-title {
+                font-size: 1.8rem;
+            }
+
+            .featured-slide {
+                height: 350px;
+            }
+
+            .article-detail-title {
+                font-size: 2rem;
+            }
+
+            .article-detail-image {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-toolbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .toolbar-container {
+                gap: 0.8rem;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+                scrollbar-width: none;
+            }
+
+            .toolbar-container::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tool-btn {
+                flex-shrink: 0;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 1rem 0;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-bottom: 1rem;
+            }
+
+            .nav-actions {
+                margin-bottom: 1rem;
+            }
+
+            .hero {
+                height: 350px;
+            }
+
+            .hero-content {
+                padding: 2rem;
+                margin: 0 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .sidebar {
+                width: 320px;
+                right: -320px;
+            }
+
+            .toggle-sidebar {
+                width: 50px;
+                height: 50px;
+                right: 20px;
+                top: 150px;
+            }
+
+            .featured-slide {
+                height: 300px;
+            }
+
+            .featured-content {
+                padding: 2rem;
+            }
+
+            .featured-title {
+                font-size: 1.6rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-btn {
+                padding: 0.8rem;
+            }
+
+            .article-detail-title {
+                font-size: 1.8rem;
+            }
+
+            .article-detail-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .btn {
+                padding: 0.9rem 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-slide {
+                height: 250px;
+            }
+
+            .featured-content {
+                padding: 1.5rem;
+            }
+
+            .featured-title {
+                font-size: 1.4rem;
+            }
+
+            .article-detail-title {
+                font-size: 1.6rem;
+            }
+
+            .article-detail-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Toolbar -->
+    <div class="top-toolbar">
+        <div class="toolbar-container">
+            <a href="carbonfoot.html" class="tool-btn">
+                <i class="fas fa-calculator"></i>
+                Carbon Footprint
+            </a>
+            <a href="quiz.html" class="tool-btn">
+                <i class="fas fa-question-circle"></i>
+                Eco Quiz
+            </a>
+            <a href="blogs.html" class="tool-btn">
+                <i class="fas fa-newspaper"></i>
+                Blogs
+            </a>
+            <a href="#" class="tool-btn">
+                <i class="fas fa-chart-line"></i>
+                Progress Tracker
+            </a>
+            <a href="challenges.html" class="tool-btn">
+                <i class="fas fa-leaf"></i>
+                Challenges
+            </a>
+            <a href="#" class="tool-btn">
+                <i class="fas fa-shopping-bag"></i>
+                Eco Products
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="logo-text">Green<span>Horizon</span></div>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#">Solutions</a></li>
+                    <li><a href="#">Impact</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="home.html" class="btn-nav btn-nav-outline">Back to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="slider">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1508784411316-02b8cd4d3a3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1518176258769-f227c798150e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80');"></div>
+        </div>
+        <div class="hero-content">
+            <h2>Latest Environmental News</h2>
+            <p>Stay informed with the most recent developments in sustainability, climate change, and eco-friendly innovations.</p>
+            <a href="#articles" class="btn">Explore Articles</a>
+        </div>
+    </section>
+
+    <!-- Featured Articles Slider -->
+    <section class="featured-slider">
+        <div class="featured-slider-container">
+            <div class="featured-slide active" id="featuredSlide1" data-article-id="1">
+                <img src="https://images.unsplash.com/photo-1617791160536-598cf32026fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80" alt="Renewable energy">
+                <div class="featured-content">
+                    <span class="featured-category">Renewable Energy</span>
+                    <h3 class="featured-title">Breakthrough in Solar Panel Efficiency Reaches 50%</h3>
+                    <p class="featured-excerpt">Scientists have developed a new solar cell technology that dramatically increases efficiency while reducing production costs, paving the way for wider adoption.</p>
+                    <a href="#" class="btn read-featured-btn" data-article-id="1">Read Full Story</a>
+                </div>
+            </div>
+            <div class="featured-slide" id="featuredSlide2" data-article-id="2">
+                <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Climate change">
+                <div class="featured-content">
+                    <span class="featured-category">Climate Policy</span>
+                    <h3 class="featured-title">Global Leaders Agree on Historic Climate Accord</h3>
+                    <p class="featured-excerpt">After weeks of negotiations, countries have reached a landmark agreement to accelerate emissions reductions with legally binding targets for all nations.</p>
+                    <a href="#" class="btn read-featured-btn" data-article-id="2">Read Full Story</a>
+                </div>
+            </div>
+            <div class="featured-slide" id="featuredSlide3" data-article-id="3">
+                <img src="https://images.unsplash.com/photo-1526779259212-939e64788e3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" alt="Sustainable agriculture">
+                <div class="featured-content">
+                    <span class="featured-category">Sustainable Agriculture</span>
+                    <h3 class="featured-title">Vertical Farming Revolutionizes Urban Food Production</h3>
+                    <p class="featured-excerpt">New vertical farming techniques are producing 10 times more food per square foot while using 95% less water than traditional agriculture.</p>
+                    <a href="#" class="btn read-featured-btn" data-article-id="3">Read Full Story</a>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="slider-btn prev-slide"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn next-slide"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="articles" id="articles">
+        <div class="section-header">
+            <h2>Environmental Articles</h2>
+            <p>Discover the latest news, research, and insights on sustainability and environmental protection</p>
+        </div>
+        
+        <div class="articles-container">
+            <div class="categories">
+                <button class="category-btn active" data-category="all">All Topics</button>
+                <button class="category-btn" data-category="climate">Climate Change</button>
+                <button class="category-btn" data-category="energy">Renewable Energy</button>
+                <button class="category-btn" data-category="conservation">Conservation</button>
+                <button class="category-btn" data-category="policy">Policy & Activism</button>
+                <button class="category-btn" data-category="technology">Green Tech</button>
+            </div>
+            
+            <div class="articles-grid" id="articlesGrid">
+                <!-- Articles will be loaded here from API -->
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="newsletter-container">
+            <h3>Stay Updated on Environmental News</h3>
+            <p>Subscribe to our weekly newsletter for the latest articles, research, and sustainability tips delivered to your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Article Detail View -->
+    <div class="article-detail" id="articleDetail">
+        <div class="article-detail-container">
+            <button class="close-article" id="closeArticle">
+                <i class="fas fa-times"></i>
+            </button>
+            <img src="" alt="" class="article-detail-image" id="detailImage">
+            <span class="article-detail-category" id="detailCategory"></span>
+            <h1 class="article-detail-title" id="detailTitle"></h1>
+            <div class="article-detail-meta">
+                <span class="article-detail-date" id="detailDate"></span>
+                <span class="article-detail-author" id="detailAuthor"></span>
+            </div>
+            <div class="article-detail-content" id="detailContent">
+                <!-- Article content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Toggle -->
+    <button class="toggle-sidebar" id="toggleSidebar">
+        <i class="fas fa-tools"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Quick Access Tools</h3>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="carbonfoot.html">
+                    <i class="fas fa-calculator"></i>
+                    Carbon Calculator
+                </a>
+            </li>
+            <li>
+                <a href="quiz.html">
+                    <i class="fas fa-question-circle"></i>
+                    Sustainability Quiz
+                </a>
+            </li>
+            <li>
+                <a href="blogs.html">
+                    <i class="fas fa-newspaper"></i>
+                    Latest Articles
+                </a>
+            </li>
+            <li>
+                <a href="goal.html">
+                    <i class="fas fa-bullseye"></i>
+                    My Goals
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-chart-line"></i>
+                    Progress Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-users"></i>
+                    Community Forum
+                </a>
+            </li>
+            <li>
+                <a href="product.html">
+                    <i class="fas fa-shopping-bag"></i>
+                    Eco-Friendly Products
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-calendar-alt"></i>
+                    Events Calendar
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-hands-helping"></i>
+                    Volunteer Opportunities
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <i class="fas fa-leaf leaf-decoration leaf-1"></i>
+        <i class="fas fa-leaf leaf-decoration leaf-2"></i>
+        
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Green Horizon</h4>
+                <p>Our mission is to empower individuals and communities to create meaningful environmental change through education, tools, and collective action.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="ourmission.html">Our Mission</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p>info@greenhorizon.org</p>
+                <p>+1 (555) 123-4567</p>
+                <p>123 Sustainability Way<br>Sist,Chennai</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Green Horizon. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script>
+        // Mock database of articles with full content
+        const articlesDatabase = {
+            // Featured articles
+            "1": {
+                id: "1",
+                title: "Breakthrough in Solar Panel Efficiency Reaches 50%",
+                description: "Scientists have developed a new solar cell technology that dramatically increases efficiency while reducing production costs, paving the way for wider adoption.",
+                category: "energy",
+                date: "June 18, 2023",
+                source: "Renewable Energy Journal",
+                image: "https://images.unsplash.com/photo-1617791160536-598cf32026fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80",
+                author: "Dr. Sarah Chen, Energy Researcher",
+                content: `
+                    <p>In a groundbreaking development that could revolutionize the renewable energy sector, researchers at the National Renewable Energy Laboratory have achieved a remarkable 50% efficiency rate for solar panels under laboratory conditions. This represents a significant leap from the current commercial panels that typically operate at 15-22% efficiency.</p>
+                    
+                    <h2>The Technology Behind the Breakthrough</h2>
+                    <p>The new solar cells utilize a tandem structure that combines perovskite and silicon, two materials that absorb different parts of the solar spectrum. By stacking these materials, the cells can capture more energy from sunlight than traditional single-material panels.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Solar panel technology">
+                    
+                    <h2>Potential Impact</h2>
+                    <p>This advancement could dramatically change the economics of solar energy:</p>
+                    <ul>
+                        <li>Reduced land requirements for solar farms by up to 60%</li>
+                        <li>Lower cost per watt of electricity generated</li>
+                        <li>Increased viability of solar in less sunny regions</li>
+                        <li>Faster return on investment for residential and commercial installations</li>
+                    </ul>
+                    
+                    <blockquote>
+                        "This isn't just an incremental improvement—it's a game-changer that could accelerate our transition away from fossil fuels," said Dr. Chen, the lead researcher on the project.
+                    </blockquote>
+                    
+                    <h2>Commercialization Timeline</h2>
+                    <p>While the laboratory results are promising, the team estimates it will take 3-5 years to scale up production and bring the technology to market. Several major solar manufacturers have already expressed interest in licensing the technology.</p>
+                    
+                    <p>The research was published in the journal <em>Nature Energy</em> and has been peer-reviewed by experts in the field. Funding came from the Department of Energy's Solar Energy Technologies Office.</p>
+                `
+            },
+            "2": {
+                id: "2",
+                title: "Global Leaders Agree on Historic Climate Accord",
+                description: "After weeks of negotiations, countries have reached a landmark agreement to accelerate emissions reductions with legally binding targets for all nations.",
+                category: "policy",
+                date: "June 15, 2023",
+                source: "Global Environmental Watch",
+                image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                author: "James Wilson, Environmental Correspondent",
+                content: `
+                    <p>In an unprecedented show of global cooperation, representatives from 195 countries have agreed to a comprehensive climate accord that sets legally binding emissions reduction targets for all nations. The agreement, reached after marathon negotiations in Geneva, represents the most ambitious global climate action plan to date.</p>
+                    
+                    <h2>Key Provisions of the Accord</h2>
+                    <p>The new agreement includes several groundbreaking measures:</p>
+                    <ul>
+                        <li>All countries must reduce greenhouse gas emissions by at least 50% by 2030 (from 2010 levels)</li>
+                        <li>Developed nations will provide $100 billion annually in climate finance to developing countries</li>
+                        <li>Complete phase-out of coal power in developed nations by 2035</li>
+                        <li>Global net-zero emissions target moved up to 2045 (from 2050 in previous agreements)</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1508784411316-02b8cd4d3a3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Climate conference">
+                    
+                    <h2>Enforcement Mechanisms</h2>
+                    <p>Unlike previous climate agreements, this accord includes enforceable consequences for nations that fail to meet their commitments:</p>
+                    <ul>
+                        <li>Regular independent verification of emissions data</li>
+                        <li>Trade sanctions for non-compliant nations</li>
+                        <li>Automatic ratcheting up of targets if global progress is insufficient</li>
+                    </ul>
+                    
+                    <blockquote>
+                        "This agreement shows that the world is finally treating the climate crisis with the urgency it demands," said UN Secretary-General during the announcement.
+                    </blockquote>
+                    
+                    <h2>Industry Response</h2>
+                    <p>Business leaders have expressed cautious optimism about the agreement. Many major corporations had already been moving toward cleaner operations, but the clear regulatory framework is expected to accelerate investments in renewable energy and green technologies.</p>
+                    
+                    <p>Environmental groups have praised the agreement but emphasize that implementation will be key. "The targets are strong, but now we need to see real action," said the director of a major climate advocacy organization.</p>
+                `
+            },
+            "3": {
+                id: "3",
+                title: "Vertical Farming Revolutionizes Urban Food Production",
+                description: "New vertical farming techniques are producing 10 times more food per square foot while using 95% less water than traditional agriculture.",
+                category: "technology",
+                date: "June 12, 2023",
+                source: "Sustainable Agriculture Review",
+                image: "https://images.unsplash.com/photo-1526779259212-939e64788e3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80",
+                author: "Maria Rodriguez, Agricultural Technology Reporter",
+                content: `
+                    <p>A new generation of vertical farms is transforming how we grow food in urban environments. These high-tech facilities stack growing beds vertically in climate-controlled buildings, using LED lighting and hydroponic systems to produce crops year-round with minimal environmental impact.</p>
+                    
+                    <h2>The Technology Behind Vertical Farms</h2>
+                    <p>Modern vertical farms incorporate several advanced technologies:</p>
+                    <ul>
+                        <li>Precision LED lighting that mimics optimal sunlight conditions</li>
+                        <li>Hydroponic and aeroponic systems that use minimal water</li>
+                        <li>AI-powered monitoring of plant health and growth conditions</li>
+                        <li>Automated harvesting systems</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1518176258769-f227c798150e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Vertical farm interior">
+                    
+                    <h2>Environmental Benefits</h2>
+                    <p>Compared to traditional agriculture, vertical farming offers significant sustainability advantages:</p>
+                    <ul>
+                        <li>95% less water usage through recirculating systems</li>
+                        <li>No need for pesticides or herbicides</li>
+                        <li>Dramatically reduced transportation emissions (farms are located in cities)</li>
+                        <li>Year-round production unaffected by weather conditions</li>
+                    </ul>
+                    
+                    <blockquote>
+                        "We're seeing yields that are 10-20 times higher per square foot than traditional farming," explained the CEO of a leading vertical farming company. "And we can do it right in the middle of cities, where most of the food is consumed."
+                    </blockquote>
+                    
+                    <h2>Economic Viability</h2>
+                    <p>While early vertical farms struggled with high energy costs, advances in LED efficiency and renewable energy integration have improved economics. Several large-scale vertical farms are now profitable, and the sector has attracted billions in investment.</p>
+                    
+                    <p>The technology is particularly well-suited for leafy greens, herbs, and small fruits. Researchers are working to expand the range of crops that can be grown profitably in vertical systems.</p>
+                    
+                    <h2>Future Outlook</h2>
+                    <p>Analysts predict that vertical farming could supply 10-15% of urban fresh produce within the next decade. Some cities are already incorporating vertical farms into urban planning initiatives to improve food security and reduce environmental impact.</p>
+                `
+            },
+            // Regular articles
+            "4": {
+                id: "4",
+                title: "Global Initiative Plants 1 Million Trees in Urban Areas",
+                description: "Cities around the world are participating in a massive urban reforestation project to combat air pollution and heat islands.",
+                category: "conservation",
+                date: "June 15, 2023",
+                source: "Eco News Network",
+                image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                author: "Environmental Reporting Team",
+                content: `
+                    <p>A global initiative called Urban Canopy has successfully planted its one millionth tree across participating cities worldwide. The project, which began three years ago, aims to increase urban tree cover to combat air pollution, reduce heat island effects, and improve quality of life for city residents.</p>
+                    
+                    <h2>Project Impact</h2>
+                    <p>The million trees planted are already making a measurable difference:</p>
+                    <ul>
+                        <li>Average temperature reduction of 2-4°F in participating neighborhoods</li>
+                        <li>15-20% improvement in air quality metrics</li>
+                        <li>Increased biodiversity with native tree species</li>
+                        <li>Improved mental health outcomes for residents</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Urban trees">
+                    
+                    <h2>Community Involvement</h2>
+                    <p>What sets this initiative apart is its emphasis on community participation. Local residents are involved in selecting tree species, planting, and ongoing care. Educational programs teach the importance of urban forests and how to maintain them.</p>
+                    
+                    <blockquote>
+                        "These trees aren't just decorations—they're vital infrastructure for healthy cities," said the project director. "And when communities are involved from the start, they develop a lasting connection with their urban forest."
+                    </blockquote>
+                    
+                    <h2>Future Goals</h2>
+                    <p>The initiative has set a new target of 10 million trees by 2030, with expanded focus on disadvantaged neighborhoods that typically have less tree cover. The project is also developing an app to help cities track tree health and benefits over time.</p>
+                `
+            },
+            "5": {
+                id: "5",
+                title: "New Battery Technology Could Revolutionize Renewable Energy Storage",
+                description: "Scientists develop a more efficient and environmentally friendly battery with twice the capacity of current lithium-ion batteries.",
+                category: "technology",
+                date: "June 14, 2023",
+                source: "Green Tech Journal",
+                image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80",
+                author: "Dr. Alan Turing, Technology Editor",
+                content: `
+                    <p>Researchers at Stanford University have unveiled a new type of battery that could solve one of renewable energy's biggest challenges: storage. The solid-state battery offers twice the energy density of conventional lithium-ion batteries while being safer, longer-lasting, and more environmentally friendly to produce.</p>
+                    
+                    <h2>Technical Breakthroughs</h2>
+                    <p>The new battery technology incorporates several innovations:</p>
+                    <ul>
+                        <li>Solid electrolyte eliminates fire risk</li>
+                        <li>Novel anode material increases energy density</li>
+                        <li>More abundant materials reduce reliance on rare earth elements</li>
+                        <li>Faster charging capability</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1627634777213-c2100c9b82e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Battery technology">
+                    
+                    <h2>Potential Applications</h2>
+                    <p>This breakthrough could transform multiple industries:</p>
+                    <ul>
+                        <li>Electric vehicles with 800+ mile range</li>
+                        <li>Grid-scale storage for renewable energy</li>
+                        <li>Longer-lasting consumer electronics</li>
+                        <li>Aerospace and defense applications</li>
+                    </ul>
+                    
+                    <blockquote>
+                        "This isn't just an incremental improvement—it's a fundamental change in how we store energy," said the lead researcher. "We're looking at the future of batteries here."
+                    </blockquote>
+                    
+                    <h2>Commercialization Timeline</h2>
+                    <p>The research team has partnered with several manufacturers to bring the technology to market. Pilot production is expected to begin within 18 months, with consumer products potentially available by 2025.</p>
+                    
+                    <p>Environmental groups have praised the development, particularly the reduced reliance on conflict minerals and the potential to make renewable energy systems more efficient and affordable.</p>
+                `
+            },
+            "6": {
+                id: "6",
+                title: "UN Report Warns of Accelerating Climate Change Impacts",
+                description: "Latest assessment shows climate change effects are happening faster than predicted, with urgent action needed to avoid worst scenarios.",
+                category: "climate",
+                date: "June 12, 2023",
+                source: "Global Environmental Watch",
+                image: "https://images.unsplash.com/photo-1508784411316-02b8cd4d3a3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                author: "Climate Reporting Team",
+                content: `
+                    <p>A new report from the United Nations paints a sobering picture of accelerating climate change impacts across the globe. The comprehensive assessment, compiled by hundreds of scientists, finds that many effects are occurring faster than previously predicted, with some changes now considered irreversible.</p>
+                    
+                    <h2>Key Findings</h2>
+                    <p>The report highlights several alarming trends:</p>
+                    <ul>
+                        <li>Global temperature rise is tracking at the high end of previous projections</li>
+                        <li>Sea level rise has accelerated to 4.8mm per year (up from 3.7mm in last assessment)</li>
+                        <li>Extreme weather events are increasing in frequency and intensity</li>
+                        <li>Several climate tipping points may have already been passed</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2032&q=80" alt="Climate impacts">
+                    
+                    <h2>Regional Impacts</h2>
+                    <p>The report provides detailed regional assessments:</p>
+                    <ul>
+                        <li><strong>Arctic:</strong> Warming 3 times faster than global average, with sea ice at record lows</li>
+                        <li><strong>Small Island Nations:</strong> Facing existential threats from sea level rise</li>
+                        <li><strong>Africa:</strong> Increased drought and food insecurity</li>
+                        <li><strong>Asia:</strong> More intense monsoons and flooding</li>
+                        <li><strong>Americas:</strong> Worsening wildfires and hurricanes</li>
+                    </ul>
+                    
+                    <blockquote>
+                        "The science is unequivocal—we're in a climate emergency," said the UN Secretary-General. "This report must be a wake-up call for governments, businesses and citizens everywhere."
+                    </blockquote>
+                    
+                    <h2>Path Forward</h2>
+                    <p>While the findings are dire, the report emphasizes that rapid, coordinated action can still prevent the worst outcomes. Key recommendations include:</p>
+                    <ul>
+                        <li>Halving global emissions by 2030</li>
+                        <li>Massive investments in adaptation measures</li>
+                        <li>Protection and restoration of natural ecosystems</li>
+                        <li>International cooperation on climate finance</li>
+                    </ul>
+                    
+                    <p>The report will inform upcoming climate negotiations and national policy decisions worldwide.</p>
+                `
+            },
+            "7": {
+                id: "7",
+                title: "Community Solar Programs Expanding Nationwide",
+                description: "More households are gaining access to solar power through innovative community-shared solar programs that lower costs and barriers to entry.",
+                category: "energy",
+                date: "June 10, 2023",
+                source: "Renewable Energy Today",
+                image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80",
+                author: "Lisa Park, Energy Reporter",
+                content: `
+                    <p>Community solar programs are experiencing explosive growth across the United States, making renewable energy accessible to millions of households that can't install their own rooftop panels. These programs allow participants to subscribe to shares of larger solar arrays located elsewhere in their community, receiving credits on their electricity bills for the power produced.</p>
+                    
+                    <h2>How Community Solar Works</h2>
+                    <p>The model provides several advantages:</p>
+                    <ul>
+                        <li>No upfront costs or installation for participants</li>
+                        <li>Available to renters and those with unsuitable roofs</li>
+                        <li>Typically offers 5-15% savings on electricity bills</li>
+                        <li>Scalable model that can serve entire communities</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Community solar array">
+                    
+                    <h2>Recent Growth</h2>
+                    <p>The National Renewable Energy Laboratory reports:</p>
+                    <ul>
+                        <li>Over 3,000 community solar projects now operational nationwide</li>
+                        <li>Capacity has doubled in the past two years</li>
+                        <li>22 states have enacted supportive policies</li>
+                        <li>Participation has grown 40% annually since 2020</li>
+                    </ul>
+                    
+                    <blockquote>
+                        "Community solar is democratizing access to clean energy," said the director of a solar advocacy group. "It's particularly impactful for low-to-moderate income households that benefit most from energy bill savings."
+                    </blockquote>
+                    
+                    <h2>Future Outlook</h2>
+                    <p>The Inflation Reduction Act includes new incentives for community solar, which analysts predict could triple capacity by 2030. Several states are implementing programs specifically designed to increase access for disadvantaged communities.</p>
+                    
+                    <p>Experts suggest that community solar could eventually provide 10-20% of U.S. electricity needs, complementing rooftop and utility-scale solar installations.</p>
+                `
+            },
+            "8": {
+                id: "8",
+                title: "New Legislation Bans Single-Use Plastics in Major Cities",
+                description: "Several metropolitan areas have passed laws eliminating plastic bags, straws, and food containers in effort to reduce ocean pollution.",
+                category: "policy",
+                date: "June 8, 2023",
+                source: "Environmental Policy Review",
+                image: "https://images.unsplash.com/photo-1585435557343-3b0782896c72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                author: "Michael Chen, Policy Analyst",
+                content: `
+                    <p>In a coordinated effort to combat plastic pollution, ten major U.S. cities have simultaneously enacted bans on single-use plastics, including bags, straws, and food containers. The legislation represents the most comprehensive attempt yet to reduce the flood of plastic waste entering waterways and oceans.</p>
+                    
+                    <h2>Details of the Bans</h2>
+                    <p>The new laws vary by city but generally include:</p>
+                    <ul>
+                        <li>Elimination of single-use plastic bags at checkout (replaced with paper or reusable alternatives)</li>
+                        <li>Ban on plastic straws and stirrers (available by request only)</li>
+                        <li>Requirement for restaurants to use compostable or reusable food containers</li>
+                        <li>Phase-out of plastic bottles in municipal buildings</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1585435557343-3b0782896c72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Plastic pollution">
+                    
+                    <h2>Expected Impact</h2>
+                    <p>Environmental groups estimate the bans will:</p>
+                    <ul>
+                        <li>Remove over 1 billion plastic items from waste streams annually</li>
+                        <li>Reduce plastic litter in waterways by 40-60%</li>
+                        <li>Save cities millions in cleanup and waste management costs</li>
+                        <li>Drive innovation in sustainable packaging alternatives</li>
+                    </ul>
+                    
+                    <blockquote>
+                        "These bans send a powerful market signal that the era of throwaway plastics is ending," said the mayor of one participating city. "We're proving that cities can lead on environmental issues even without federal action."
+                    </blockquote>
+                    
+                    <h2>Business Response</h2>
+                    <p>While some retailers initially resisted the changes, many have since embraced the transition. Several national chains have announced they'll implement the new standards across all locations, not just in cities with bans.</p>
+                    
+                    <p>The legislation includes support programs for small businesses to help with the transition, including grants for purchasing alternative packaging and educational resources about compliance.</p>
+                `
+            },
+            "9": {
+                id: "9",
+                title: "Breakthrough in Carbon Capture Technology Shows Promise",
+                description: "Researchers have developed a more efficient method for capturing carbon emissions directly from industrial sources.",
+                category: "technology",
+                date: "June 5, 2023",
+                source: "Climate Solutions",
+                image: "https://images.unsplash.com/photo-1518176258769-f227c798150e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+                author: "Dr. Emma Wilson, Climate Technology Reporter",
+                content: `
+                    <p>Scientists at MIT have developed a new carbon capture system that could make the technology more affordable and effective for industrial applications. The breakthrough, published in the journal Science, uses a novel molecular filter that selectively captures CO2 with much lower energy requirements than current methods.</p>
+                    
+                    <h2>Technical Advancements</h2>
+                    <p>The new system addresses key challenges that have limited carbon capture adoption:</p>
+                    <ul>
+                        <li>80% reduction in energy needed to capture CO2</li>
+                        <li>Doubled capacity compared to conventional solvents</li>
+                        <li>Longer-lasting materials reduce replacement costs</li>
+                        <li>Modular design allows for flexible deployment</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Carbon capture facility">
+                    
+                    <h2>Potential Applications</h2>
+                    <p>The technology could be deployed in several high-impact scenarios:</p>
+                    <ul>
+                        <li>Cement and steel plants (hard-to-decarbonize industries)</li>
+                        <li>Natural gas power generation</li>
+                        <li>Direct air capture facilities</li>
+                        <li>Biomass energy production</li>
+                    </ul>
+                    
+                    <blockquote>
+                        "This could be the missing piece for achieving net-zero emissions in heavy industry," said the lead researcher. "We've dramatically improved both the economics and performance of carbon capture."
+                    </blockquote>
+                    
+                    <h2>Commercialization Plans</h2>
+                    <p>The research team has formed a startup to commercialize the technology, with pilot projects planned at several industrial sites. Full-scale deployment could begin as early as 2025 if testing goes well.</p>
+                    
+                    <p>The development comes as governments worldwide are increasing support for carbon capture through tax credits and research funding, recognizing its importance in meeting climate targets.</p>
+                `
+            },
+            "10": {
+                id: "10",
+                title: "Ocean Cleanup Project Removes Record Amount of Plastic",
+                description: "Nonprofit organization's latest system has collected over 100,000 pounds of plastic from the Great Pacific Garbage Patch in its first month of operation.",
+                category: "conservation",
+                date: "June 3, 2023",
+                source: "Marine Conservation News",
+                image: "https://images.unsplash.com/photo-1564053489984-317bbd824340?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2096&q=80",
+                author: "Olivia Martinez, Environmental Journalist",
+                content: `
+                    <p>The Ocean Cleanup project has announced that its latest system, named "Jenny," has removed a record 100,000 pounds of plastic waste from the Great Pacific Garbage Patch in just four weeks of operation. This represents a major milestone for the ambitious project aiming to clean up 90% of floating ocean plastic by 2040.</p>
+                    
+                    <h2>How the System Works</h2>
+                    <p>The improved cleanup technology features:</p>
+                    <ul>
+                        <li>A U-shaped barrier that concentrates floating plastic</li>
+                        <li>AI-powered cameras to identify plastic concentrations</li>
+                        <li>Solar-powered systems for continuous operation</li>
+                        <li>Improved durability for rough ocean conditions</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1564053489984-317bbd824340?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2096&q=80" alt="Ocean cleanup system">
+                    
+                    <h2>Environmental Impact</h2>
+                    <p>While removing existing plastic is important, scientists emphasize that stopping plastic at its source is crucial:</p>
+                    <ul>
+                        <li>An estimated 11 million metric tons of plastic enter oceans each year</li>
+                        <li>Plastic harms over 800 marine species</li>
+                        <li>Microplastics are now found throughout the food chain</li>
+                    </ul>
+                    
+                    <blockquote>
+                        "Cleanup is just one piece of the puzzle," said the project's founder. "We're also working on intercepting plastic in rivers before it reaches the ocean and advocating for policy changes to reduce plastic production."
+                    </blockquote>
+                    
+                    <h2>Future Plans</h2>
+                    <p>The organization plans to deploy 10 more systems by the end of 2023, which could potentially remove several million pounds of plastic annually. They're also developing methods to recycle the collected ocean plastic into durable products.</p>
+                    
+                    <p>Meanwhile, marine biologists caution that cleanup efforts must be carefully managed to avoid harming ocean life, and that prevention remains the most effective solution to the plastic pollution crisis.</p>
+                `
+            },
+            "11": {
+                id: "11",
+                title: "Electric Vehicle Sales Surpass Traditional Cars in Key Markets",
+                description: "In a historic shift, EVs accounted for over 50% of new car sales in several European countries last quarter, signaling a major transition in transportation.",
+                category: "technology",
+                date: "June 1, 2023",
+                source: "Clean Transport Today",
+                image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                author: "Robert Kim, Transportation Reporter",
+                content: `
+                    <p>The electric vehicle revolution has reached a tipping point in several countries, with EVs outselling gasoline and diesel cars for the first time. Norway led the way with 86% EV market share, followed by Iceland (64%), Sweden (47%), and the Netherlands (43%). China and the U.S. also saw record EV adoption rates.</p>
+                    
+                    <h2>Factors Driving Adoption</h2>
+                    <p>Several converging trends are accelerating the EV transition:</p>
+                    <ul>
+                        <li>Improved battery technology increasing range and lowering costs</li>
+                        <li>Expanding model options across all vehicle categories</li>
+                        <li>Government incentives and phase-out plans for combustion engines</li>
+                        <li>Growing charging infrastructure</li>
+                        <li>Consumer awareness of environmental and cost benefits</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Electric vehicles">
+                    
+                    <h2>Environmental Impact</h2>
+                    <p>The shift to EVs is already reducing emissions:</p>
+                    <ul>
+                        <li>Norway has seen a 15% drop in transport emissions since 2016</li>
+                        <li>EVs produce 50-70% fewer lifetime emissions than gas cars (depending on electricity source)</li>
+                        <li>Improved urban air quality in cities with high EV adoption</li>
+                    </ul>
+                    
+                    <blockquote>
+                        "We're witnessing the beginning of the end for the internal combustion engine," said an industry analyst. "The question is no longer if, but how quickly the transition will happen globally."
+                    </blockquote>
+                    
+                    <h2>Challenges Ahead</h2>
+                    <p>While progress is encouraging, challenges remain:</p>
+                    <ul>
+                        <li>Ensuring ethical sourcing of battery materials</li>
+                        <li>Expanding charging infrastructure in rural areas</li>
+                        <li>Managing grid impacts as EV adoption grows</li>
+                        <li>Making EVs affordable for all income levels</li>
+                    </ul>
+                    
+                    <p>Automakers are responding with massive investments in electrification, with many planning to phase out gasoline vehicles entirely by 2030-2035.</p>
+                `
+            },
+            "12": {
+                id: "12",
+                title: "Indigenous-Led Conservation Protects Vital Ecosystems",
+                description: "New research shows that lands managed by Indigenous communities have better biodiversity outcomes than protected areas under government control.",
+                category: "conservation",
+                date: "May 29, 2023",
+                source: "Global Biodiversity Watch",
+                image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2052&q=80",
+                author: "Sophia Williams, Conservation Reporter",
+                content: `
+                    <p>A comprehensive study published in Nature Sustainability has found that Indigenous-managed lands are more effective at preserving biodiversity than government-protected areas. The research, spanning 15 countries, highlights the importance of supporting Indigenous land stewardship in global conservation efforts.</p>
+                    
+                    <h2>Key Findings</h2>
+                    <p>The study compared biodiversity indicators across different land management types:</p>
+                    <ul>
+                        <li>Indigenous-managed lands had 20-30% higher species richness</li>
+                        <li>Deforestation rates were 2-3 times lower than in protected areas</li>
+                        <li>Ecosystem health metrics were consistently better</li>
+                        <li>Carbon storage was better maintained</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2052&q=80" alt="Indigenous conservation">
+                    
+                    <h2>Success Factors</h2>
+                    <p>Researchers identified several reasons for these outcomes:</p>
+                    <ul>
+                        <li>Traditional ecological knowledge accumulated over generations</li>
+                        <li>Holistic view of humans as part of ecosystems</li>
+                        <li>Long-term stewardship perspective</li>
+                        <li>Community-based monitoring and enforcement</li>
+                    </ul>
+                    
+                    <blockquote>
+                        "Indigenous peoples have been the original conservationists for millennia," said a study co-author from an Indigenous community. "Our ways of living with nature offer solutions to today's biodiversity crisis."
+                    </blockquote>
+                    
+                    <h2>Policy Implications</h2>
+                    <p>The findings are influencing conservation policy worldwide:</p>
+                    <ul>
+                        <li>Several countries are expanding Indigenous land rights</li>
+                        <li>New funding mechanisms support Indigenous-led conservation</li>
+                        <li>International agreements now recognize Indigenous knowledge</li>
+                        <li>Partnerships between scientists and Indigenous groups are increasing</li>
+                    </ul>
+                    
+                    <p>Despite progress, many Indigenous communities still face challenges securing land rights and resources needed for effective stewardship. Advocates call for greater support and recognition of Indigenous leadership in meeting global biodiversity targets.</p>
+                `
+            }
+        };
+
+        // Featured Articles Slider
+        const featuredSlides = document.querySelectorAll('.featured-slide');
+        let currentFeaturedSlide = 0;
+
+        function showFeaturedSlide(n) {
+            featuredSlides.forEach(slide => slide.classList.remove('active'));
+            currentFeaturedSlide = (n + featuredSlides.length) % featuredSlides.length;
+            featuredSlides[currentFeaturedSlide].classList.add('active');
+        }
+
+        function nextFeaturedSlide() {
+            showFeaturedSlide(currentFeaturedSlide + 1);
+        }
+
+        function prevFeaturedSlide() {
+            showFeaturedSlide(currentFeaturedSlide - 1);
+        }
+
+        // Set up slider controls
+        document.querySelector('.next-slide').addEventListener('click', nextFeaturedSlide);
+        document.querySelector('.prev-slide').addEventListener('click', prevFeaturedSlide);
+
+        // Auto-advance slides every 8 seconds
+        setInterval(nextFeaturedSlide, 8000);
+
+        // Hero slider
+        const heroSlides = document.querySelectorAll('.slide');
+        let currentHeroSlide = 0;
+
+        function showHeroSlide(n) {
+            heroSlides.forEach(slide => slide.classList.remove('active'));
+            currentHeroSlide = (n + heroSlides.length) % heroSlides.length;
+            heroSlides[currentHeroSlide].classList.add('active');
+        }
+
+        function nextHeroSlide() {
+            showHeroSlide(currentHeroSlide + 1);
+        }
+
+        setInterval(nextHeroSlide, 5000);
+
+        // Sidebar functionality
+        const sidebar = document.getElementById('sidebar');
+        const toggleSidebar = document.getElementById('toggleSidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        toggleSidebar.addEventListener('click', () => {
+            sidebar.classList.add('open');
+        });
+
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && e.target !== toggleSidebar) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Category filtering
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const category = btn.getAttribute('data-category');
+                filterArticles(category);
+            });
+        });
+
+        function filterArticles(category) {
+            const articles = document.querySelectorAll('.article-card');
+            articles.forEach(article => {
+                if (category === 'all' || article.getAttribute('data-category') === category) {
+                    article.style.display = 'flex';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        }
+
+        // Newsletter form
+        const newsletterForm = document.querySelector('.newsletter-form');
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = newsletterForm.querySelector('input').value;
+            alert(`Thank you for subscribing with ${email}! You'll receive our next newsletter soon.`);
+            newsletterForm.reset();
+        });
+
+        // Article detail view functionality
+        const articleDetail = document.getElementById('articleDetail');
+        const closeArticleBtn = document.getElementById('closeArticle');
+        
+        function openArticle(articleId) {
+            const article = articlesDatabase[articleId];
+            if (!article) return;
+            
+            // Populate the detail view
+            document.getElementById('detailImage').src = article.image;
+            document.getElementById('detailImage').alt = article.title;
+            document.getElementById('detailCategory').textContent = article.category.charAt(0).toUpperCase() + article.category.slice(1);
+            document.getElementById('detailTitle').textContent = article.title;
+            document.getElementById('detailDate').innerHTML = `<i class="far fa-calendar-alt"></i> ${article.date}`;
+            document.getElementById('detailAuthor').innerHTML = `<i class="fas fa-user-edit"></i> ${article.author}`;
+            document.getElementById('detailContent').innerHTML = article.content;
+            
+            // Show the detail view
+            articleDetail.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeArticle() {
+            articleDetail.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        closeArticleBtn.addEventListener('click', closeArticle);
+
+        // Close article when clicking outside content
+        articleDetail.addEventListener('click', (e) => {
+            if (e.target === articleDetail) {
+                closeArticle();
+            }
+        });
+
+        // Display articles from our database
+        function displayArticles() {
+            const articlesGrid = document.getElementById('articlesGrid');
+            articlesGrid.innerHTML = '';
+            
+            // Convert articlesDatabase object to array and filter out featured articles
+            const regularArticles = Object.values(articlesDatabase).filter(article => 
+                !['1', '2', '3'].includes(article.id)
+            );
+            
+            if (regularArticles.length === 0) {
+                articlesGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">No articles found. Please try again later.</p>';
+                return;
+            }
+            
+            regularArticles.forEach(article => {
+                const articleCard = document.createElement('div');
+                articleCard.className = 'article-card';
+                articleCard.setAttribute('data-category', article.category);
+                articleCard.setAttribute('data-article-id', article.id);
+                articleCard.innerHTML = `
+                    <div class="article-image">
+                        <img src="${article.image}" alt="${article.title}">
+                        <span class="article-category">${article.category.charAt(0).toUpperCase() + article.category.slice(1)}</span>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-date">${article.date}</div>
+                        <h3 class="article-title">${article.title}</h3>
+                        <p class="article-excerpt">${article.description}</p>
+                        <div class="article-footer">
+                            <span class="article-source">${article.source}</span>
+                            <a href="#" class="read-more read-article-btn" data-article-id="${article.id}">
+                                Read more <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                articlesGrid.appendChild(articleCard);
+            });
+            
+            // Set up click handlers for regular articles
+            document.querySelectorAll('.article-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    // Don't open article if clicking on the read more link (let that handler take care of it)
+                    if (!e.target.closest('.read-article-btn')) {
+                        const articleId = card.getAttribute('data-article-id');
+                        openArticle(articleId);
+                    }
+                });
+            });
+            
+            // Set up click handlers for read more buttons
+            document.querySelectorAll('.read-article-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const articleId = btn.getAttribute('data-article-id');
+                    openArticle(articleId);
+                });
+            });
+            
+            // Set up click handlers for featured article read buttons
+            document.querySelectorAll('.read-featured-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const articleId = btn.getAttribute('data-article-id');
+                    openArticle(articleId);
+                });
+            });
+            
+            // Set up click handlers for featured slides
+            document.querySelectorAll('.featured-slide').forEach(slide => {
+                slide.addEventListener('click', (e) => {
+                    // Don't open article if clicking on the read more button (let that handler take care of it)
+                    if (!e.target.closest('.read-featured-btn')) {
+                        const articleId = slide.getAttribute('data-article-id');
+                        openArticle(articleId);
+                    }
+                });
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Display articles from our database
+            displayArticles();
+            
+            // Set current year in footer
+            document.querySelector('.copyright').innerHTML = `&copy; ${new Date().getFullYear()} Green Horizon. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>`;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator | Green Horizon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-green: #1a3a32;
+            --dark-green: #0d2721;
+            --light-green: #4a8c7d;
+            --lighter-green: #e8f0ee;
+            --accent-teal: #2a9d8f;
+            --gold: #e9c46a;
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            --section-padding: 6rem 2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--lighter-green);
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Premium Navigation */
+        .top-toolbar {
+            background-color: var(--primary-green);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .toolbar-container {
+            display: flex;
+            gap: 1.5rem;
+            max-width: 1400px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-btn:hover {
+            background-color: var(--accent-teal);
+            transform: translateY(-2px);
+        }
+
+        .tool-btn i {
+            font-size: 0.9rem;
+        }
+
+        header {
+            background-color: white;
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background-color: var(--primary-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            transform: rotate(15deg);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.7rem;
+            color: var(--primary-green);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-teal);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            height: 100%;
+        }
+
+        nav li {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            padding: 1.5rem 0.5rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary-green);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent-teal);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-nav {
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+        }
+
+        .btn-nav-outline {
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .btn-nav-outline:hover {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .btn-nav-filled {
+            background-color: var(--primary-green);
+            color: white;
+            box-shadow: 0 4px 15px rgba(42, 92, 82, 0.3);
+        }
+
+        .btn-nav-filled:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+        }
+
+        /* Calculator Section */
+        .carbon-calculator {
+            padding: var(--section-padding);
+            background-color: white;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--gold);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .calculator-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .calculator-tabs {
+            display: flex;
+            background-color: var(--lighter-green);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-btn {
+            padding: 1.2rem 2rem;
+            background: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            font-size: 1rem;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent-teal);
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-green);
+        }
+
+        .tab-btn.active::after {
+            width: 100%;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .tab-content {
+            padding: 3rem;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 500;
+            color: var(--primary-green);
+        }
+
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input[type="number"]:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
+        }
+
+        .form-group input[type="range"] {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            background: #ddd;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .form-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-teal);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .input-helper {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 0.3rem;
+        }
+
+        .form-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .form-column h4 {
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .calculate-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background-color: var(--gold);
+            color: var(--text-dark);
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            margin-top: 1rem;
+        }
+
+        .calculate-btn:hover {
+            background-color: #f4a261;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Results Section */
+        .calculator-results {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .calculator-results.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .results-header h3 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+        }
+
+        .close-results {
+            background-color: transparent;
+            border: none;
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-results:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .results-content {
+            background-color: white;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 16px;
+            padding: 3rem;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .results-summary {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .total-footprint {
+            margin-bottom: 1.5rem;
+        }
+
+        .footprint-value {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            line-height: 1;
+        }
+
+        .footprint-unit {
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .footprint-comparison {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .results-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .breakdown-chart {
+            height: 300px;
+        }
+
+        .breakdown-stat {
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-category {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-green);
+        }
+
+        .stat-bar-container {
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-bar {
+            height: 100%;
+            border-radius: 5px;
+            background-color: var(--accent-teal);
+            transition: width 1s ease;
+        }
+
+        .stat-value {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Reports Tab */
+        .report-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .timeframe-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .timeframe-btn {
+            padding: 0.6rem 1.2rem;
+            background-color: var(--lighter-green);
+            border: none;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .timeframe-btn.active {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .date-selector input {
+            padding: 0.6rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .report-results {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .report-visualization {
+            height: 300px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .report-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--lighter-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--primary-green);
+            font-size: 1.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .report-comparison {
+            grid-column: 1 / -1;
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .report-comparison h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        .comparison-bar {
+            display: flex;
+            height: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-you {
+            background-color: var(--accent-teal);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 1rem;
+            font-weight: 600;
+            transition: width 1s ease;
+        }
+
+        .comparison-avg {
+            background-color: var(--lighter-green);
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            padding-left: 1rem;
+            font-weight: 600;
+        }
+
+        .comparison-result {
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .comparison-result span {
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+
+        .report-savings {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .report-savings h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        .savings-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .savings-item:last-child {
+            border-bottom: none;
+        }
+
+        .savings-desc {
+            color: var(--text-dark);
+        }
+
+        .savings-amount {
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-green);
+            color: var(--text-light);
+            padding: 5rem 2rem 2rem;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+
+        .footer-col p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0.9;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            transform: translateX(5px);
+            color: var(--gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background-color: var(--gold);
+            color: var(--text-dark);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .leaf-decoration {
+            position: absolute;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .leaf-1 {
+            top: 50px;
+            left: 50px;
+            font-size: 10rem;
+            transform: rotate(15deg);
+        }
+
+        .leaf-2 {
+            bottom: 100px;
+            right: 100px;
+            font-size: 8rem;
+            transform: rotate(-20deg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .section-header h2 {
+                font-size: 2.6rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-container {
+                height: 70px;
+            }
+
+            .section-header h2 {
+                font-size: 2.4rem;
+            }
+
+            .results-breakdown {
+                grid-template-columns: 1fr;
+            }
+
+            .report-results {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-toolbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .toolbar-container {
+                gap: 0.8rem;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+                scrollbar-width: none;
+            }
+
+            .toolbar-container::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tool-btn {
+                flex-shrink: 0;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 1rem 0;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-bottom: 1rem;
+            }
+
+            .nav-actions {
+                margin-bottom: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .tab-content {
+                padding: 2rem;
+            }
+
+            .form-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .results-content {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .tab-btn {
+                padding: 1rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .footprint-value {
+                font-size: 3rem;
+            }
+
+            .report-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Toolbar -->
+    <div class="top-toolbar">
+        <div class="toolbar-container">
+            <a href="goal.html" class="tool-btn">
+                <i class="fas fa-bullseye"></i>
+                Goal
+            </a>
+            <a href="quiz.html" class="tool-btn">
+                <i class="fas fa-question-circle"></i>
+                Eco Quiz
+            </a>
+            <a href="blogs.html" class="tool-btn">
+                <i class="fas fa-newspaper"></i>
+                Blogs
+            </a>
+            <a href="#" class="tool-btn">
+                <i class="fas fa-chart-line"></i>
+                Progress Tracker
+            </a>
+            <a href="challenges.html" class="tool-btn">
+                <i class="fas fa-leaf"></i>
+                Challenges
+            </a>
+            <a href="product.html" class="tool-btn">
+                <i class="fas fa-shopping-bag"></i>
+                Eco Products
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="home.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="logo-text">Green<span>Horizon</span></div>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#">Solutions</a></li>
+                    <li><a href="#">Impact</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="#" class="btn-nav btn-nav-outline">Log In</a>
+                <a href="#" class="btn-nav btn-nav-filled">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Carbon Calculator Section -->
+    <section class="carbon-calculator">
+        <div class="section-header">
+            <h2>Carbon Footprint Calculator</h2>
+            <p>Measure your environmental impact and discover ways to reduce it</p>
+        </div>
+        
+        <div class="calculator-container">
+            <div class="calculator-tabs">
+                <button class="tab-btn active" data-tab="basic">Basic</button>
+                <button class="tab-btn" data-tab="advanced">Advanced</button>
+                <button class="tab-btn" data-tab="reports">Reports</button>
+            </div>
+            
+            <div class="calculator-content">
+                <!-- Basic Calculator Tab -->
+                <div class="tab-content active" id="basic-tab">
+                    <form id="basic-form">
+                        <div class="form-group">
+                            <label for="household-size">Household Size</label>
+                            <input type="number" id="household-size" min="1" max="20" value="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="home-type">Home Type</label>
+                            <select id="home-type">
+                                <option value="apartment">Apartment</option>
+                                <option value="small-house">Small House</option>
+                                <option value="medium-house" selected>Medium House</option>
+                                <option value="large-house">Large House</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="electricity-usage">Monthly Electricity (kWh)</label>
+                            <input type="number" id="electricity-usage" min="0" value="500">
+                            <div class="input-helper">US average: 877 kWh</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="gas-usage">Monthly Natural Gas (therms)</label>
+                            <input type="number" id="gas-usage" min="0" value="50">
+                            <div class="input-helper">US average: 60 therms</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="car-miles">Weekly Car Miles</label>
+                            <input type="number" id="car-miles" min="0" value="100">
+                            <div class="input-helper">US average: 200 miles</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="car-mpg">Car Fuel Efficiency (MPG)</label>
+                            <input type="number" id="car-mpg" min="1" value="25">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="flights">Flights per Year (short-haul)</label>
+                            <input type="number" id="flights" min="0" value="2">
+                        </div>
+                        
+                        <button type="submit" class="btn calculate-btn">
+                            <i class="fas fa-calculator"></i> Calculate Footprint
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Advanced Calculator Tab -->
+                <div class="tab-content" id="advanced-tab">
+                    <form id="advanced-form">
+                        <div class="form-columns">
+                            <div class="form-column">
+                                <h4>Home Energy</h4>
+                                <div class="form-group">
+                                    <label for="advanced-electricity">Monthly Electricity (kWh)</label>
+                                    <input type="number" id="advanced-electricity" min="0" value="500">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="advanced-gas">Monthly Natural Gas (therms)</label>
+                                    <input type="number" id="advanced-gas" min="0" value="50">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="heating-oil">Monthly Heating Oil (gallons)</label>
+                                    <input type="number" id="heating-oil" min="0" value="0">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="renewable-percent">% Renewable Energy</label>
+                                    <input type="range" id="renewable-percent" min="0" max="100" value="20">
+                                    <span id="renewable-value">20%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-column">
+                                <h4>Transportation</h4>
+                                <div class="form-group">
+                                    <label for="vehicle1-miles">Vehicle 1 Weekly Miles</label>
+                                    <input type="number" id="vehicle1-miles" min="0" value="100">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="vehicle1-mpg">Vehicle 1 MPG</label>
+                                    <input type="number" id="vehicle1-mpg" min="1" value="25">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="public-transit">Weekly Public Transit Miles</label>
+                                    <input type="number" id="public-transit" min="0" value="20">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="flights-short">Short Flights (per year)</label>
+                                    <input type="number" id="flights-short" min="0" value="2">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="flights-long">Long Flights (per year)</label>
+                                    <input type="number" id="flights-long" min="0" value="0">
+                                </div>
+                            </div>
+                            
+                            <div class="form-column">
+                                <h4>Food & Shopping</h4>
+                                <div class="form-group">
+                                    <label for="diet-type">Primary Diet</label>
+                                    <select id="diet-type">
+                                        <option value="meat-heavy">Meat Heavy</option>
+                                        <option value="average" selected>Average</option>
+                                        <option value="vegetarian">Vegetarian</option>
+                                        <option value="vegan">Vegan</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="food-waste">Food Waste</label>
+                                    <select id="food-waste">
+                                        <option value="high">High</option>
+                                        <option value="average" selected>Average</option>
+                                        <option value="low">Low</option>
+                                        <option value="zero">Zero</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="shopping-habits">Shopping Habits</label>
+                                    <select id="shopping-habits">
+                                        <option value="high">Frequent New Purchases</option>
+                                        <option value="average" selected>Average</option>
+                                        <option value="low">Minimalist/Sustainable</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn calculate-btn">
+                            <i class="fas fa-calculator"></i> Calculate Detailed Footprint
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Reports Tab -->
+                <div class="tab-content" id="reports-tab">
+                    <div class="report-controls">
+                        <div class="timeframe-selector">
+                            <button class="timeframe-btn active" data-timeframe="weekly">Weekly</button>
+                            <button class="timeframe-btn" data-timeframe="monthly">Monthly</button>
+                            <button class="timeframe-btn" data-timeframe="yearly">Yearly</button>
+                        </div>
+                        
+                        <div class="date-selector">
+                            <input type="date" id="report-date" value="">
+                        </div>
+                    </div>
+                    
+                    <div class="report-results">
+                        <div class="report-visualization">
+                            <canvas id="footprint-chart"></canvas>
+                        </div>
+                        
+                        <div class="report-stats">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-fire"></i>
+                                </div>
+                                <div class="stat-value" id="carbon-total">0</div>
+                                <div class="stat-label">kg CO2</div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="stat-value" id="home-emissions">0</div>
+                                <div class="stat-label">Home</div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <div class="stat-value" id="transport-emissions">0</div>
+                                <div class="stat-label">Transport</div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-utensils"></i>
+                                </div>
+                                <div class="stat-value" id="food-emissions">0</div>
+                                <div class="stat-label">Food</div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-comparison">
+                            <h4>Comparison to Averages</h4>
+                            <div class="comparison-bar">
+                                <div class="comparison-you" id="comparison-you" style="width: 30%">
+                                    <span>You: <span id="comparison-you-value">0</span> kg</span>
+                                </div>
+                                <div class="comparison-avg" id="comparison-avg" style="width: 70%">
+                                    <span>US Average: 16,000 kg</span>
+                                </div>
+                            </div>
+                            <div class="comparison-result" id="comparison-result">
+                                Your footprint is <span id="comparison-percent">0%</span> of the US average
+                            </div>
+                        </div>
+                        
+                        <div class="report-savings">
+                            <h4>Potential Savings</h4>
+                            <div class="savings-item">
+                                <div class="savings-desc">Switch to LED bulbs</div>
+                                <div class="savings-amount">-250 kg/year</div>
+                            </div>
+                            <div class="savings-item">
+                                <div class="savings-desc">Reduce meat consumption</div>
+                                <div class="savings-amount">-800 kg/year</div>
+                            </div>
+                            <div class="savings-item">
+                                <div class="savings-desc">Use public transit 2x/week</div>
+                                <div class="savings-amount">-600 kg/year</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="calculator-results" id="calculator-results">
+            <div class="results-header">
+                <h3>Your Carbon Footprint Results</h3>
+                <button class="btn close-results" id="close-results">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="results-content">
+                <div class="results-summary">
+                    <div class="total-footprint">
+                        <div class="footprint-value" id="footprint-value">0</div>
+                        <div class="footprint-unit">kg CO2 per year</div>
+                    </div>
+                    <div class="footprint-comparison">
+                        Equivalent to <span id="tree-equivalent">0</span> trees needed to absorb your CO2
+                    </div>
+                </div>
+                
+                <div class="results-breakdown">
+                    <div class="breakdown-chart">
+                        <canvas id="breakdown-chart"></canvas>
+                    </div>
+                    
+                    <div class="breakdown-stats">
+                        <div class="breakdown-stat">
+                            <div class="stat-category">Home Energy</div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar" id="home-energy-bar" style="width: 40%"></div>
+                            </div>
+                            <div class="stat-value" id="home-energy-value">0 kg</div>
+                        </div>
+                        
+                        <div class="breakdown-stat">
+                            <div class="stat-category">Transportation</div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar" id="transport-bar" style="width: 30%"></div>
+                            </div>
+                            <div class="stat-value" id="transport-value">0 kg</div>
+                        </div>
+                        
+                        <div class="breakdown-stat">
+                            <div class="stat-category">Food</div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar" id="food-bar" style="width: 20%"></div>
+                            </div>
+                            <div class="stat-value" id="food-value">0 kg</div>
+                        </div>
+                        
+                        <div class="breakdown-stat">
+                            <div class="stat-category">Shopping</div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar" id="shopping-bar" style="width: 10%"></div>
+                            </div>
+                            <div class="stat-value" id="shopping-value">0 kg</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <i class="fas fa-leaf leaf-decoration leaf-1"></i>
+        <i class="fas fa-leaf leaf-decoration leaf-2"></i>
+        
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Green Horizon</h4>
+                <p>Our mission is to empower individuals and communities to create meaningful environmental change through education, tools, and collective action.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="ourmission.html">Our Mission</a></li>
+                  
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p>info@greenhorizon.org</p>
+                <p>+1 (555) 123-4567</p>
+                <p>123 Sustainability Way<br>Sist,chennai</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Green Horizon. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                // Update active tab button
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show corresponding content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === `${tabId}-tab`) {
+                        content.classList.add('active');
+                    }
+                });
+                
+                // Initialize chart if on reports tab
+                if (tabId === 'reports') {
+                    initReportsChart();
+                }
+            });
+        });
+        
+        // Range input display
+        const renewablePercent = document.getElementById('renewable-percent');
+        const renewableValue = document.getElementById('renewable-value');
+        
+        renewablePercent.addEventListener('input', () => {
+            renewableValue.textContent = `${renewablePercent.value}%`;
+        });
+        
+        // Timeframe selector
+        const timeframeBtns = document.querySelectorAll('.timeframe-btn');
+        
+        timeframeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                timeframeBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                updateReportData(btn.getAttribute('data-timeframe'));
+            });
+        });
+        
+        // Set default date to today
+        document.getElementById('report-date').valueAsDate = new Date();
+        
+        // Form submission
+        const basicForm = document.getElementById('basic-form');
+        const advancedForm = document.getElementById('advanced-form');
+        const resultsModal = document.getElementById('calculator-results');
+        const closeResults = document.getElementById('close-results');
+        
+        basicForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            calculateBasicFootprint();
+            resultsModal.classList.add('active');
+        });
+        
+        advancedForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            calculateAdvancedFootprint();
+            resultsModal.classList.add('active');
+        });
+        
+        closeResults.addEventListener('click', () => {
+            resultsModal.classList.remove('active');
+        });
+        
+        // Close modal when clicking outside
+        resultsModal.addEventListener('click', (e) => {
+            if (e.target === resultsModal) {
+                resultsModal.classList.remove('active');
+            }
+        });
+        
+        // Calculation functions
+        function calculateBasicFootprint() {
+            // Get input values
+            const householdSize = parseInt(document.getElementById('household-size').value) || 1;
+            const homeType = document.getElementById('home-type').value;
+            const electricity = parseInt(document.getElementById('electricity-usage').value) || 0;
+            const gas = parseInt(document.getElementById('gas-usage').value) || 0;
+            const carMiles = parseInt(document.getElementById('car-miles').value) || 0;
+            const carMpg = parseInt(document.getElementById('car-mpg').value) || 25;
+            const flights = parseInt(document.getElementById('flights').value) || 0;
+            
+            // Calculate emissions (simplified calculations)
+            const homeEmissions = calculateHomeEmissions(homeType, electricity, gas) / householdSize;
+            const transportEmissions = calculateTransportEmissions(carMiles, carMpg, flights);
+            
+            // For basic calculator, we'll estimate food and shopping based on averages
+            const foodEmissions = 2000; // Average kg CO2/year
+            const shoppingEmissions = 1500; // Average kg CO2/year
+            
+            const totalEmissions = homeEmissions + transportEmissions + foodEmissions + shoppingEmissions;
+            
+            // Display results
+            displayResults(totalEmissions, homeEmissions, transportEmissions, foodEmissions, shoppingEmissions);
+        }
+        
+        function calculateAdvancedFootprint() {
+            // Get input values
+            const householdSize = parseInt(document.getElementById('household-size').value) || 1;
+            const electricity = parseInt(document.getElementById('advanced-electricity').value) || 0;
+            const gas = parseInt(document.getElementById('advanced-gas').value) || 0;
+            const heatingOil = parseInt(document.getElementById('heating-oil').value) || 0;
+            const renewablePercent = parseInt(document.getElementById('renewable-percent').value) || 0;
+            const vehicle1Miles = parseInt(document.getElementById('vehicle1-miles').value) || 0;
+            const vehicle1Mpg = parseInt(document.getElementById('vehicle1-mpg').value) || 25;
+            const publicTransit = parseInt(document.getElementById('public-transit').value) || 0;
+            const flightsShort = parseInt(document.getElementById('flights-short').value) || 0;
+            const flightsLong = parseInt(document.getElementById('flights-long').value) || 0;
+            const dietType = document.getElementById('diet-type').value;
+            const foodWaste = document.getElementById('food-waste').value;
+            const shoppingHabits = document.getElementById('shopping-habits').value;
+            
+            // Calculate emissions
+            const homeEmissions = calculateAdvancedHomeEmissions(electricity, gas, heatingOil, renewablePercent) / householdSize;
+            const transportEmissions = calculateAdvancedTransportEmissions(vehicle1Miles, vehicle1Mpg, publicTransit, flightsShort, flightsLong);
+            const foodEmissions = calculateFoodEmissions(dietType, foodWaste);
+            const shoppingEmissions = calculateShoppingEmissions(shoppingHabits);
+            
+            const totalEmissions = homeEmissions + transportEmissions + foodEmissions + shoppingEmissions;
+            
+            // Display results
+            displayResults(totalEmissions, homeEmissions, transportEmissions, foodEmissions, shoppingEmissions);
+        }
+        
+        // Emission calculation helpers
+        function calculateHomeEmissions(homeType, electricity, gas) {
+            // Simplified emission factors
+            let homeFactor = 1;
+            if (homeType === 'apartment') homeFactor = 0.7;
+            if (homeType === 'small-house') homeFactor = 0.9;
+            if (homeType === 'large-house') homeFactor = 1.3;
+            
+            // Electricity: 0.92 lbs CO2 per kWh (US average)
+            // Gas: 11.7 lbs CO2 per therm
+            const electricityEmissions = electricity * 0.92 * 12 / 2.205; // Convert to kg/year
+            const gasEmissions = gas * 11.7 * 12 / 2.205; // Convert to kg/year
+            
+            return (electricityEmissions + gasEmissions) * homeFactor;
+        }
+        
+        function calculateAdvancedHomeEmissions(electricity, gas, heatingOil, renewablePercent) {
+            // Adjust electricity emissions based on renewable percentage
+            const nonRenewablePercent = (100 - renewablePercent) / 100;
+            const electricityEmissions = electricity * 0.92 * nonRenewablePercent * 12 / 2.205;
+            const gasEmissions = gas * 11.7 * 12 / 2.205;
+            const heatingOilEmissions = heatingOil * 22.61 * 12 / 2.205;
+            
+            return electricityEmissions + gasEmissions + heatingOilEmissions;
+        }
+        
+        function calculateTransportEmissions(carMiles, carMpg, flights) {
+            // Car emissions: 19.6 lbs CO2 per gallon of gasoline
+            const gallonsUsed = (carMiles * 52) / carMpg; // Annual gallons
+            const carEmissions = gallonsUsed * 19.6 / 2.205; // Convert to kg/year
+            
+            // Flights: 0.25 kg CO2 per passenger mile (short-haul)
+            const flightEmissions = flights * 500 * 0.25; // Assuming 500 miles per short flight
+            
+            return carEmissions + flightEmissions;
+        }
+        
+        function calculateAdvancedTransportEmissions(vehicleMiles, vehicleMpg, publicTransit, flightsShort, flightsLong) {
+            // Car emissions
+            const gallonsUsed = (vehicleMiles * 52) / vehicleMpg;
+            const carEmissions = gallonsUsed * 19.6 / 2.205;
+            
+            // Public transit: 0.17 kg CO2 per passenger mile (average)
+            const transitEmissions = publicTransit * 52 * 0.17;
+            
+            // Flights
+            const shortFlightEmissions = flightsShort * 500 * 0.25; // 500 miles per short flight
+            const longFlightEmissions = flightsLong * 3000 * 0.18; // 3000 miles per long flight, lower emission factor
+            
+            return carEmissions + transitEmissions + shortFlightEmissions + longFlightEmissions;
+        }
+        
+        function calculateFoodEmissions(dietType, foodWaste) {
+            // Average diet emissions in kg CO2/year
+            let baseEmissions = 2000;
+            
+            // Adjust for diet type
+            if (dietType === 'meat-heavy') baseEmissions = 3000;
+            if (dietType === 'vegetarian') baseEmissions = 1500;
+            if (dietType === 'vegan') baseEmissions = 1200;
+            
+            // Adjust for food waste
+            if (foodWaste === 'high') baseEmissions *= 1.3;
+            if (foodWaste === 'low') baseEmissions *= 0.8;
+            if (foodWaste === 'zero') baseEmissions *= 0.6;
+            
+            return baseEmissions;
+        }
+        
+        function calculateShoppingEmissions(shoppingHabits) {
+            // Average shopping emissions in kg CO2/year
+            if (shoppingHabits === 'high') return 2500;
+            if (shoppingHabits === 'low') return 800;
+            return 1500; // average
+        }
+        
+        // Display results
+        function displayResults(total, home, transport, food, shopping) {
+            // Update main value
+            document.getElementById('footprint-value').textContent = Math.round(total).toLocaleString();
+            
+            // Update tree equivalent (approx 21 kg CO2 per tree per year)
+            const trees = Math.round(total / 21);
+            document.getElementById('tree-equivalent').textContent = trees;
+            
+            // Update breakdown values
+            document.getElementById('home-energy-value').textContent = Math.round(home).toLocaleString() + ' kg';
+            document.getElementById('transport-value').textContent = Math.round(transport).toLocaleString() + ' kg';
+            document.getElementById('food-value').textContent = Math.round(food).toLocaleString() + ' kg';
+            document.getElementById('shopping-value').textContent = Math.round(shopping).toLocaleString() + ' kg';
+            
+            // Update breakdown bars
+            const maxValue = Math.max(home, transport, food, shopping);
+            document.getElementById('home-energy-bar').style.width = `${(home / maxValue) * 100}%`;
+            document.getElementById('transport-bar').style.width = `${(transport / maxValue) * 100}%`;
+            document.getElementById('food-bar').style.width = `${(food / maxValue) * 100}%`;
+            document.getElementById('shopping-bar').style.width = `${(shopping / maxValue) * 100}%`;
+            
+            // Create pie chart
+            createBreakdownChart(home, transport, food, shopping);
+        }
+        
+        // Chart functions
+        let breakdownChart = null;
+        
+        function createBreakdownChart(home, transport, food, shopping) {
+            const ctx = document.getElementById('breakdown-chart').getContext('2d');
+            
+            // Destroy previous chart if exists
+            if (breakdownChart) {
+                breakdownChart.destroy();
+            }
+            
+            breakdownChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Home Energy', 'Transportation', 'Food', 'Shopping'],
+                    datasets: [{
+                        data: [home, transport, food, shopping],
+                        backgroundColor: [
+                            '#2a9d8f',
+                            '#e9c46a',
+                            '#f4a261',
+                            '#e76f51'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                boxWidth: 15,
+                                padding: 20,
+                                font: {
+                                    family: 'Montserrat',
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    const percentage = Math.round((value / context.dataset.data.reduce((a, b) => a + b, 0)) * 100);
+                                    return `${label}: ${Math.round(value).toLocaleString()} kg (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        }
+        
+        let reportsChart = null;
+        
+        function initReportsChart() {
+            const ctx = document.getElementById('footprint-chart').getContext('2d');
+            
+            // Sample data for reports
+            const weeklyData = [120, 90, 110, 95, 105, 100, 115];
+            const monthlyData = [4200, 3900, 4100, 3800, 4000, 3950, 4050, 4150, 3900, 4100, 4000, 4200];
+            const yearlyData = [2019, 2020, 2021, 2022].map(year => {
+                return 48000 - (Math.random() * 5000);
+            });
+            
+            // Destroy previous chart if exists
+            if (reportsChart) {
+                reportsChart.destroy();
+            }
+            
+            reportsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Carbon Footprint (kg CO2)',
+                        data: weeklyData,
+                        borderColor: '#2a9d8f',
+                        backgroundColor: 'rgba(42, 157, 143, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.parsed.y} kg CO2`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'kg CO2'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Update stats with sample data
+            updateReportData('weekly');
+        }
+        
+        function updateReportData(timeframe) {
+            // Sample data based on timeframe
+            let total, home, transport, food;
+            
+            if (timeframe === 'weekly') {
+                total = 750;
+                home = 350;
+                transport = 250;
+                food = 150;
+            } else if (timeframe === 'monthly') {
+                total = 3200;
+                home = 1500;
+                transport = 1100;
+                food = 600;
+            } else { // yearly
+                total = 38400;
+                home = 18000;
+                transport = 13200;
+                food = 7200;
+            }
+            
+            // Update values
+            document.getElementById('carbon-total').textContent = total.toLocaleString();
+            document.getElementById('home-emissions').textContent = home.toLocaleString();
+            document.getElementById('transport-emissions').textContent = transport.toLocaleString();
+            document.getElementById('food-emissions').textContent = food.toLocaleString();
+            
+            // Update comparison
+            const usAverage = timeframe === 'weekly' ? 1400 : 
+                            timeframe === 'monthly' ? 5600 : 16800;
+            const percent = Math.round((total / usAverage) * 100);
+            
+            document.getElementById('comparison-you-value').textContent = total.toLocaleString();
+            document.getElementById('comparison-percent').textContent = `${percent}%`;
+            
+            // Adjust comparison bar
+            const comparisonTotal = total + usAverage;
+            document.getElementById('comparison-you').style.width = `${(total / comparisonTotal) * 100}%`;
+            document.getElementById('comparison-avg').style.width = `${(usAverage / comparisonTotal) * 100}%`;
+            
+            // Update comparison text color based on performance
+            const comparisonResult = document.getElementById('comparison-result');
+            comparisonResult.style.color = percent < 80 ? '#2a9d8f' : percent < 100 ? '#e9c46a' : '#e76f51';
+        }
+        
+        // Initialize reports tab if it's active on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.querySelector('.tab-btn[data-tab="reports"]').classList.contains('active')) {
+                initReportsChart();
+            }
+        });
+    </script>
+</body>
+</html>

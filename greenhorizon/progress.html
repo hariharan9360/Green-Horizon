@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Progress Tracker | Green Horizon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #27ae60;
+            --primary-light: #2ecc71;
+            --secondary: #3498db;
+            --accent: #e67e22;
+            --dark: #2c3e50;
+            --light: #f9f9f9;
+            --gray: #666;
+            --light-gray: #f0f0f0;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        /* Hero Section */
+        .progress-hero {
+            background: linear-gradient(135deg, rgba(20, 120, 80, 0.92) 0%, rgba(10, 80, 60, 0.95) 100%);
+            color: white;
+            padding: 140px 0 90px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+        .progress-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-hero p {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+        
+        .back-to-home {
+            position: absolute;
+            top: 35px;
+            right: 35px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .back-to-home:hover {
+            transform: translateX(-5px);
+            background: rgba(255, 255, 255, 0.25);
+        }
+        
+        /* Main Container */
+        .progress-container {
+            max-width: 1300px;
+            margin: 70px auto;
+            padding: 0 30px;
+        }
+        
+        /* Header & Filters */
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .progress-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark);
+            font-size: 2.5rem;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .progress-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        
+        .time-filter {
+            display: flex;
+            gap: 12px;
+            background: var(--light);
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+        
+        .filter-btn {
+            background: transparent;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+        
+        /* Progress Grid - Perfectly Aligned Cards */
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .progress-card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .progress-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark);
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.1) 0%, rgba(46, 204, 113, 0.1) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+        
+        .card-value {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+        
+        .card-description {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            transition: width 1s ease-out;
+        }
+        
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+        
+        /* Chart Containers - Perfect Alignment */
+        .chart-container {
+            height: 220px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        /* Comparison Section */
+        .comparison-section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            margin-bottom: 60px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .comparison-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark);
+            font-size: 2rem;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .comparison-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 10px;
+        }
+        
+        .comparison-chart {
+            height: 380px;
+            position: relative;
+        }
+        
+        /* Recent Activity */
+        .recent-activity {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .activity-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark);
+            font-size: 2rem;
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .activity-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 10px;
+        }
+        
+        .activity-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--light-gray);
+            transition: transform 0.3s ease;
+        }
+        
+        .activity-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.1) 0%, rgba(241, 196, 15, 0.1) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .activity-content h4 {
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .activity-content p {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .activity-time {
+            color: #999;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* Goal Completion Section */
+        .goal-completion {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            margin-bottom: 60px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .goal-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark);
+            font-size: 2rem;
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .goal-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 10px;
+        }
+        
+        .goal-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .goal-item {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .goal-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .goal-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        
+        .goal-checkbox.checked {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .goal-text {
+            flex-grow: 1;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .goal-text.completed {
+            text-decoration: line-through;
+            color: var(--gray);
+        }
+        
+        .goal-impact {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .progress-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .progress-hero p {
+                font-size: 1.2rem;
+            }
+            
+            .progress-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-container, .comparison-chart {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Hero Section -->
+    <section class="progress-hero animate__animated animate__fadeIn">
+        <a href="home.html" class="back-to-home animate__animated animate__fadeInRight">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        <div class="container">
+            <h1 class="animate__animated animate__fadeInDown">Your Sustainability Journey</h1>
+            <p class="animate__animated animate__fadeInUp animate__delay-1s">Track, analyze, and optimize your environmental impact with precision</p>
+        </div>
+    </section>
+
+    <!-- Progress Content -->
+    <div class="progress-container">
+        <div class="progress-header animate__animated animate__fadeIn animate__delay-1s">
+            <h2 class="progress-title">My Impact Dashboard</h2>
+            <div class="time-filter">
+                <button class="filter-btn active" data-period="daily">Daily</button>
+                <button class="filter-btn" data-period="weekly">Weekly</button>
+                <button class="filter-btn" data-period="monthly">Monthly</button>
+            </div>
+        </div>
+        
+        <!-- Progress Grid - Perfectly Aligned Cards -->
+        <div class="progress-grid">
+            <!-- Carbon Footprint Card -->
+            <div class="progress-card animate-card" style="animation-delay: 0.2s">
+                <div class="card-header">
+                    <h3 class="card-title">Carbon Footprint</h3>
+                    <div class="card-icon">
+                        <i class="fas fa-shoe-prints"></i>
+                    </div>
+                </div>
+                <div class="card-value" id="carbonValue">12.4 kg</div>
+                <div class="card-description" id="carbonDescription">CO₂ saved today — 65% of daily goal</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="carbonProgress" style="width: 65%;"></div>
+                </div>
+                <div class="progress-stats">
+                    <span>Today: <strong id="carbonToday">12.4 kg</strong></span>
+                    <span>Goal: <strong id="carbonGoal">19 kg</strong></span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="carbonChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Water Saved Card -->
+            <div class="progress-card animate-card" style="animation-delay: 0.4s">
+                <div class="card-header">
+                    <h3 class="card-title">Water Saved</h3>
+                    <div class="card-icon" style="background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(52, 152, 219, 0.2) 100%); color: var(--secondary);">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                </div>
+                <div class="card-value" id="waterValue" style="color: var(--secondary);">42 L</div>
+                <div class="card-description" id="waterDescription">Water conserved — 84% of daily target</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="waterProgress" style="width: 84%; background: linear-gradient(90deg, var(--secondary), #5dade2);"></div>
+                </div>
+                <div class="progress-stats">
+                    <span>Today: <strong id="waterToday">42 L</strong></span>
+                    <span>Goal: <strong id="waterGoal">50 L</strong></span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="waterChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Goals Completed Card -->
+            <div class="progress-card animate-card" style="animation-delay: 0.6s">
+                <div class="card-header">
+                    <h3 class="card-title">Goals Completed</h3>
+                    <div class="card-icon" style="background: linear-gradient(135deg, rgba(230, 126, 34, 0.1) 0%, rgba(230, 126, 34, 0.2) 100%); color: var(--accent);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+                <div class="card-value" id="goalsValue" style="color: var(--accent);">3/5</div>
+                <div class="card-description" id="goalsDescription">Daily goals achieved — 60% completion</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="goalsProgress" style="width: 60%; background: linear-gradient(90deg, var(--accent), #f39c12);"></div>
+                </div>
+                <div class="progress-stats">
+                    <span>Completed: <strong id="goalsCompleted">3</strong></span>
+                    <span>Remaining: <strong id="goalsRemaining">2</strong></span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="goalsChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Goal Completion Section -->
+        <div class="goal-completion animate__animated animate__fadeIn animate__delay-1s">
+            <h3 class="goal-title">Today's Sustainability Goals</h3>
+            <div class="goal-list">
+                <div class="goal-item" data-impact="2.5">
+                    <div class="goal-checkbox" data-completed="true">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="goal-text completed">Meat-free meals for the day</div>
+                </div>
+                <div class="goal-item" data-impact="1.8">
+                    <div class="goal-checkbox" data-completed="true">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="goal-text completed">Use public transportation</div>
+                </div>
+                <div class="goal-item" data-impact="3.2">
+                    <div class="goal-checkbox" data-completed="true">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="goal-text completed">Reduce electricity usage by 15%</div>
+                </div>
+                <div class="goal-item" data-impact="1.5">
+                    <div class="goal-checkbox" data-completed="false"></div>
+                    <div class="goal-text">Recycle all plastic waste</div>
+                </div>
+                <div class="goal-item" data-impact="2.0">
+                    <div class="goal-checkbox" data-completed="false"></div>
+                    <div class="goal-text">Use reusable water bottle</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comparison Section -->
+        <div class="comparison-section animate__animated animate__fadeIn animate__delay-1s">
+            <div class="comparison-header">
+                <h3 class="comparison-title">Weekly Carbon Comparison</h3>
+                <div class="time-filter">
+                    <button class="filter-btn" data-comparison="last-week">Last Week</button>
+                    <button class="filter-btn active" data-comparison="this-week">This Week</button>
+                </div>
+            </div>
+            <div class="comparison-chart">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Recent Activity -->
+        <div class="recent-activity animate__animated animate__fadeIn animate__delay-1s">
+            <h3 class="activity-title">Recent Achievements</h3>
+            
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="activity-content">
+                    <h4>Completed "Meat-Free Day" Challenge</h4>
+                    <p>Saved 8.4 kg CO₂ by choosing plant-based meals all day</p>
+                    <div class="activity-time"><i class="far fa-clock"></i> Today, 12:45 PM</div>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="activity-content">
+                    <h4>Reduced Energy Consumption</h4>
+                    <p>Used 15% less electricity compared to yesterday</p>
+                    <div class="activity-time"><i class="far fa-clock"></i> Today, 9:30 AM</div>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-recycle"></i>
+                </div>
+                <div class="activity-content">
+                    <h4>Recycled 5 Items</h4>
+                    <p>Plastic, glass, and paper properly sorted</p>
+                    <div class="activity-time"><i class="far fa-clock"></i> Yesterday, 5:20 PM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script>
+        // Global variables to store chart instances
+        let carbonChart, waterChart, goalsChart, comparisonChart;
+        let currentPeriod = 'daily';
+        let currentComparison = 'this-week';
+        
+        // Sample data for different time periods
+        const chartData = {
+            daily: {
+                carbon: [8.2, 9.5, 10.1, 11.3, 12.4, 14.0, 15.2],
+                water: [25, 32, 28, 35, 42, 38, 45],
+                goals: [1, 2, 2, 3, 3, 4, 5],
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                carbonToday: 12.4,
+                carbonGoal: 19,
+                waterToday: 42,
+                waterGoal: 50,
+                goalsCompleted: 3,
+                goalsTotal: 5
+            },
+            weekly: {
+                carbon: [45, 52, 48, 55, 62],
+                water: [180, 210, 195, 230, 250],
+                goals: [12, 15, 18, 20, 25],
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                carbonToday: 62,
+                carbonGoal: 80,
+                waterToday: 250,
+                waterGoal: 300,
+                goalsCompleted: 25,
+                goalsTotal: 30
+            },
+            monthly: {
+                carbon: [180, 210, 195, 230, 250, 270, 290],
+                water: [800, 900, 850, 950, 1000, 1100, 1200],
+                goals: [45, 55, 60, 70, 80, 90, 100],
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                carbonToday: 290,
+                carbonGoal: 350,
+                waterToday: 1200,
+                waterGoal: 1500,
+                goalsCompleted: 100,
+                goalsTotal: 120
+            }
+        };
+        
+        // Comparison data
+        const comparisonData = {
+            'this-week': [12.4, 11.8, 10.5, 9.7, 8.3],
+            'last-week': [14.5, 15.2, 13.8, 16.1, 14.9]
+        };
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all charts
+            initCarbonChart();
+            initWaterChart();
+            initGoalsChart();
+            initComparisonChart();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Animate progress bars on load
+            animateProgressBars();
+        });
+        
+        function initCarbonChart() {
+            const ctx = document.getElementById('carbonChart').getContext('2d');
+            carbonChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartData.daily.labels,
+                    datasets: [{
+                        label: 'CO₂ Saved (kg)',
+                        data: chartData.daily.carbon,
+                        borderColor: 'rgba(39, 174, 96, 1)',
+                        backgroundColor: 'rgba(39, 174, 96, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: 'white',
+                        pointBorderColor: 'rgba(39, 174, 96, 1)',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }]
+                },
+                options: getChartOptions('CO₂ (kg)')
+            });
+        }
+        
+        function initWaterChart() {
+            const ctx = document.getElementById('waterChart').getContext('2d');
+            waterChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.daily.labels,
+                    datasets: [{
+                        label: 'Water Saved (L)',
+                        data: chartData.daily.water,
+                        backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                        hoverBackgroundColor: 'rgba(52, 152, 219, 0.9)'
+                    }]
+                },
+                options: getChartOptions('Water (L)')
+            });
+        }
+        
+        function initGoalsChart() {
+            const ctx = document.getElementById('goalsChart').getContext('2d');
+            goalsChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Completed', 'Remaining'],
+                    datasets: [{
+                        data: [chartData.daily.goalsCompleted, chartData.daily.goalsTotal - chartData.daily.goalsCompleted],
+                        backgroundColor: ['rgba(230, 126, 34, 0.9)', 'rgba(230, 126, 34, 0.1)'],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            bodyFont: { family: 'Montserrat', size: 12 },
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    }
+                }
+            });
+        }
+        
+        function initComparisonChart() {
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            comparisonChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                    datasets: [
+                        {
+                            label: 'Last Week',
+                            data: comparisonData['last-week'],
+                            backgroundColor: 'rgba(200, 200, 200, 0.7)',
+                            borderColor: 'rgba(200, 200, 200, 1)',
+                            borderWidth: 1,
+                            borderRadius: 6,
+                            hoverBackgroundColor: 'rgba(200, 200, 200, 0.9)'
+                        },
+                        {
+                            label: 'This Week',
+                            data: comparisonData['this-week'],
+                            backgroundColor: 'rgba(39, 174, 96, 0.7)',
+                            borderColor: 'rgba(39, 174, 96, 1)',
+                            borderWidth: 1,
+                            borderRadius: 6,
+                            hoverBackgroundColor: 'rgba(39, 174, 96, 0.9)'
+                        }
+                    ]
+                },
+                options: getComparisonChartOptions()
+            });
+        }
+        
+        function getChartOptions(yAxisTitle) {
+            return {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleFont: { family: 'Montserrat', size: 14 },
+                        bodyFont: { family: 'Montserrat', size: 12 },
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                        ticks: { font: { family: 'Montserrat' } },
+                        title: {
+                            display: true,
+                            text: yAxisTitle,
+                            font: { family: 'Montserrat', weight: 'bold' }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { family: 'Montserrat' } }
+                    }
+                }
+            };
+        }
+        
+        function getComparisonChartOptions() {
+            return {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: { family: 'Montserrat' },
+                            padding: 20,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleFont: { family: 'Montserrat', size: 14 },
+                        bodyFont: { family: 'Montserrat', size: 12 },
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                        ticks: { font: { family: 'Montserrat' } },
+                        title: {
+                            display: true,
+                            text: 'CO₂ (kg)',
+                            font: { family: 'Montserrat', weight: 'bold' }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { family: 'Montserrat' } }
+                    }
+                }
+            };
+        }
+        
+        function setupEventListeners() {
+            // Time period filter buttons
+            document.querySelectorAll('.time-filter .filter-btn[data-period]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const period = this.dataset.period;
+                    if (period === currentPeriod) return;
+                    
+                    // Update active button
+                    this.parentNode.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentPeriod = period;
+                    
+                    // Update charts with new data
+                    updateChartsForPeriod(period);
+                });
+            });
+            
+            // Comparison filter buttons
+            document.querySelectorAll('.time-filter .filter-btn[data-comparison]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const comparison = this.dataset.comparison;
+                    if (comparison === currentComparison) return;
+                    
+                    // Update active button
+                    this.parentNode.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentComparison = comparison;
+                    
+                    // Update comparison chart
+                    updateComparisonChart(comparison);
+                });
+            });
+            
+            // Goal checkboxes
+            document.querySelectorAll('.goal-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    const isCompleted = this.dataset.completed === 'true';
+                    const goalItem = this.closest('.goal-item');
+                    const goalText = goalItem.querySelector('.goal-text');
+                    
+                    // Toggle completed state
+                    this.dataset.completed = isCompleted ? 'false' : 'true';
+                    
+                    // Update UI
+                    if (isCompleted) {
+                        this.innerHTML = '';
+                        goalText.classList.remove('completed');
+                    } else {
+                        this.innerHTML = '<i class="fas fa-check"></i>';
+                        goalText.classList.add('completed');
+                    }
+                    
+                    // Update goals completed count
+                    updateGoalsCompletedCount();
+                });
+            });
+        }
+        
+        function updateGoalsCompletedCount() {
+            const totalGoals = document.querySelectorAll('.goal-item').length;
+            const completedGoals = document.querySelectorAll('.goal-checkbox[data-completed="true"]').length;
+            
+            // Update the goals card
+            document.getElementById('goalsValue').textContent = `${completedGoals}/${totalGoals}`;
+            document.getElementById('goalsDescription').textContent = `Daily goals achieved — ${Math.round((completedGoals/totalGoals)*100)}% completion`;
+            document.getElementById('goalsCompleted').textContent = completedGoals;
+            document.getElementById('goalsRemaining').textContent = totalGoals - completedGoals;
+            
+            // Update progress bar
+            const progressPercentage = (completedGoals/totalGoals)*100;
+            document.getElementById('goalsProgress').style.width = `${progressPercentage}%`;
+            
+            // Update doughnut chart
+            goalsChart.data.datasets[0].data = [completedGoals, totalGoals - completedGoals];
+            goalsChart.update();
+        }
+        
+        function updateChartsForPeriod(period) {
+            const data = chartData[period];
+            
+            // Update carbon chart
+            carbonChart.data.labels = data.labels;
+            carbonChart.data.datasets[0].data = data.carbon;
+            carbonChart.update();
+            
+            // Update water chart
+            waterChart.data.labels = data.labels;
+            waterChart.data.datasets[0].data = data.water;
+            waterChart.update();
+            
+            // Update goals chart
+            goalsChart.data.datasets[0].data = [data.goalsCompleted, data.goalsTotal - data.goalsCompleted];
+            goalsChart.update();
+            
+            // Update card values
+            document.getElementById('carbonValue').textContent = `${data.carbonToday}${period === 'monthly' ? ' kg' : ' kg'}`;
+            document.getElementById('carbonToday').textContent = `${data.carbonToday} kg`;
+            document.getElementById('carbonGoal').textContent = `${data.carbonGoal} kg`;
+            document.getElementById('carbonDescription').textContent = `CO₂ saved ${period === 'daily' ? 'today' : period === 'weekly' ? 'this week' : 'this month'} — ${Math.round((data.carbonToday/data.carbonGoal)*100)}% of ${period} goal`;
+            document.getElementById('carbonProgress').style.width = `${(data.carbonToday/data.carbonGoal)*100}%`;
+            
+            document.getElementById('waterValue').textContent = `${data.waterToday} L`;
+            document.getElementById('waterToday').textContent = `${data.waterToday} L`;
+            document.getElementById('waterGoal').textContent = `${data.waterGoal} L`;
+            document.getElementById('waterDescription').textContent = `Water conserved — ${Math.round((data.waterToday/data.waterGoal)*100)}% of ${period} target`;
+            document.getElementById('waterProgress').style.width = `${(data.waterToday/data.waterGoal)*100}%`;
+            
+            document.getElementById('goalsValue').textContent = `${data.goalsCompleted}/${data.goalsTotal}`;
+            document.getElementById('goalsCompleted').textContent = data.goalsCompleted;
+            document.getElementById('goalsRemaining').textContent = data.goalsTotal - data.goalsCompleted;
+            document.getElementById('goalsDescription').textContent = `${period === 'daily' ? 'Daily' : period === 'weekly' ? 'Weekly' : 'Monthly'} goals achieved — ${Math.round((data.goalsCompleted/data.goalsTotal)*100)}% completion`;
+            document.getElementById('goalsProgress').style.width = `${(data.goalsCompleted/data.goalsTotal)*100}%`;
+        }
+        
+        function updateComparisonChart(comparison) {
+            // Update comparison chart data
+            if (comparison === 'last-week') {
+                comparisonChart.data.datasets[0].data = comparisonData['last-week'];
+                comparisonChart.data.datasets[1].data = comparisonData['this-week'];
+            } else {
+                comparisonChart.data.datasets[0].data = comparisonData['this-week'];
+                comparisonChart.data.datasets[1].data = comparisonData['last-week'];
+            }
+            comparisonChart.update();
+        }
+        
+        function animateProgressBars() {
+            // This function is called on page load to animate the progress bars
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 100);
+            });
+        }
+    </script>
+</body>
+</html>

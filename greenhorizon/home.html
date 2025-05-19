@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Horizon - Sustainable Living Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #1a3a32;
+            --dark-green: #0d2721;
+            --light-green: #4a8c7d;
+            --lighter-green: #e8f0ee;
+            --accent-teal: #2a9d8f;
+            --gold: #e9c46a;
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            --section-padding: 6rem 2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--lighter-green);
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Premium Navigation */
+        .top-toolbar {
+            background-color: var(--primary-green);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .toolbar-container {
+            display: flex;
+            gap: 1.5rem;
+            max-width: 1400px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-btn:hover {
+            background-color: var(--accent-teal);
+            transform: translateY(-2px);
+        }
+
+        .tool-btn i {
+            font-size: 0.9rem;
+        }
+
+        header {
+            background-color: white;
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background-color: var(--primary-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            transform: rotate(15deg);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.7rem;
+            color: var(--primary-green);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-teal);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            height: 100%;
+        }
+
+        nav li {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            padding: 1.5rem 0.5rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary-green);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent-teal);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-nav {
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+        }
+
+        .btn-nav-outline {
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .btn-nav-outline:hover {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .btn-nav-filled {
+            background-color: var(--primary-green);
+            color: white;
+            box-shadow: 0 4px 15px rgba(42, 92, 82, 0.3);
+        }
+
+        .btn-nav-filled:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 700px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 58, 50, 0.9) 0%, rgba(42, 157, 143, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 3rem;
+            border-radius: 12px;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--text-dark);
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: #f4a261;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* Features Section */
+        .features {
+            padding: var(--section-padding);
+            text-align: center;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--gold);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--accent-teal);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover::before {
+            height: 10px;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--lighter-green);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--primary-green);
+            font-size: 2.2rem;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            background-color: var(--primary-green);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Eco Tips Section */
+        .eco-tips {
+            padding: var(--section-padding);
+            background-color: var(--lighter-green);
+            position: relative;
+        }
+
+        .tips-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tip-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--gold);
+            transition: var(--transition);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .tip-card:hover::after {
+            width: 10px;
+        }
+
+        .tip-image {
+            width: 300px;
+            height: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .tip-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .tip-card:hover .tip-image img {
+            transform: scale(1.05);
+        }
+
+        .tip-content h3 {
+            font-size: 1.7rem;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        .tip-content p {
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .tip-stats {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-teal);
+            font-weight: 500;
+        }
+
+        .stat-item i {
+            font-size: 1.1rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background-color: white;
+            color: var(--text-dark);
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: -5px 0 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.open {
+            right: 0;
+        }
+
+        .sidebar-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-sidebar:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 2rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.8rem;
+        }
+
+        .sidebar-menu a {
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            transition: var(--transition);
+            font-weight: 500;
+            background-color: var(--lighter-green);
+        }
+
+        .sidebar-menu a:hover {
+            background-color: var(--primary-green);
+            color: white;
+            transform: translateX(10px);
+        }
+
+        .sidebar-menu i {
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .sidebar-menu a:hover i {
+            color: var(--gold);
+        }
+
+        .toggle-sidebar {
+            position: fixed;
+            right: 30px;
+            top: 180px;
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 10px 30px rgba(26, 58, 50, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .toggle-sidebar:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-green);
+            color: var(--text-light);
+            padding: 5rem 2rem 2rem;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+
+        .footer-col p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0.9;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            transform: translateX(5px);
+            color: var(--gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background-color: var(--gold);
+            color: var(--text-dark);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .leaf-decoration {
+            position: absolute;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .leaf-1 {
+            top: 50px;
+            left: 50px;
+            font-size: 10rem;
+            transform: rotate(15deg);
+        }
+
+        .leaf-2 {
+            bottom: 100px;
+            right: 100px;
+            font-size: 8rem;
+            transform: rotate(-20deg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero {
+                height: 600px;
+            }
+            
+            .hero h2 {
+                font-size: 2.6rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-container {
+                height: 70px;
+            }
+
+            .hero {
+                height: 550px;
+            }
+
+            .hero h2 {
+                font-size: 2.4rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.4rem;
+            }
+
+            .tip-card {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .tip-image {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-toolbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .toolbar-container {
+                gap: 0.8rem;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+                scrollbar-width: none;
+            }
+
+            .toolbar-container::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tool-btn {
+                flex-shrink: 0;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 1rem 0;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-bottom: 1rem;
+            }
+
+            .nav-actions {
+                margin-bottom: 1rem;
+            }
+
+            .hero {
+                height: 500px;
+            }
+
+            .hero-content {
+                padding: 2rem;
+                margin: 0 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .sidebar {
+                width: 320px;
+                right: -320px;
+            }
+
+            .toggle-sidebar {
+                width: 50px;
+                height: 50px;
+                right: 20px;
+                top: 150px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .btn {
+                padding: 0.9rem 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .feature-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .tip-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Toolbar -->
+    <div class="top-toolbar">
+        <div class="toolbar-container">
+            <a href="carbonfoot.html" class="tool-btn">
+                <i class="fas fa-calculator"></i>
+                Carbon Footprint
+            </a>
+            <a href="quiz.html" class="tool-btn">
+                <i class="fas fa-question-circle"></i>
+                Eco Quiz
+            </a>
+            <a href="blogs.html" class="tool-btn">
+                <i class="fas fa-newspaper"></i>
+                Blogs
+            </a>
+            <a href="progress.html" class="tool-btn">
+                <i class="fas fa-chart-line"></i>
+                Progress Tracker
+            </a>
+            <a href="challenges.html" class="tool-btn">
+                <i class="fas fa-leaf"></i>
+                Challenges
+            </a>
+            <a href="product.html" class="tool-btn">
+                <i class="fas fa-shopping-bag"></i>
+                Eco Products
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="home.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="logo-text">Green<span>Horizon</span></div>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#">Solutions</a></li>
+                    <li><a href="impact.html">Impact</a></li>
+                    <li><a href="community.html">Community</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </nav>
+            
+            
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="slider">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1508784411316-02b8cd4d3a3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1526779259212-939e64788e3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1518176258769-f227c798150e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80');"></div>
+        </div>
+        <div class="hero-content">
+            <h2>Empowering Sustainable Living for a Greener Tomorrow</h2>
+            <p>Join our movement to reduce environmental impact through actionable insights, community support, and innovative tools.</p>
+            <a href="#" class="btn">Start Your Journey</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="section-header">
+            <h2>Our Sustainability Tools</h2>
+            <p>Comprehensive solutions designed to help you make meaningful environmental changes</p>
+        </div>
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shoe-prints"></i>
+                </div>
+                <h3>Carbon Tracker</h3>
+                <p>Measure and understand your carbon footprint with our advanced calculation tools and personalized reduction plans.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3>Eco Education</h3>
+                <p>Access our extensive library of resources to learn about sustainable practices and environmental science.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3>Goal System</h3>
+                <p>Set, track, and achieve your sustainability goals with our intuitive progress monitoring system.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eco Tips Section -->
+    <section class="eco-tips">
+        <div class="section-header">
+            <h2>Sustainable Living Guides</h2>
+            <p>Practical, actionable advice to help you reduce your environmental impact</p>
+        </div>
+        <div class="tips-container">
+            <div class="tip-card">
+                <div class="tip-image">
+                    <img src="https://images.unsplash.com/photo-1534710961216-75c88202f43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Growing plants at home">
+                </div>
+                <div class="tip-content">
+                    <h3>Urban Gardening</h3>
+                    <p>Transform your living space into a green oasis with our guide to indoor and balcony gardening. Learn how to grow your own herbs, vegetables, and flowers even in small spaces.</p>
+                    <div class="tip-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span>15 min/day</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-co2"></i>
+                            <span>-200kg CO2/year</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tip-card">
+                <div class="tip-image">
+                    <img src="https://images.unsplash.com/photo-1551524559-8af4e6624178?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80" alt="Water conservation">
+                </div>
+                <div class="tip-content">
+                    <h3>Water Conservation</h3>
+                    <p>Discover innovative ways to reduce water usage in your home with our comprehensive water-saving techniques that can cut your consumption by up to 50%.</p>
+                    <div class="tip-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-tint"></i>
+                            <span>-30% usage</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>$200 saved/year</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tip-card">
+                <div class="tip-image">
+                    <img src="https://images.unsplash.com/photo-1585435557343-3b0782896c72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Plastic-free living">
+                </div>
+                <div class="tip-content">
+                    <h3>Plastic-Free Living</h3>
+                    <p>Our step-by-step guide to eliminating single-use plastics from your daily routine with practical alternatives and sustainable shopping habits.</p>
+                    <div class="tip-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-recycle"></i>
+                            <span>90% reduction</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-fish"></i>
+                            <span>Marine life impact</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Chatbot Widget -->
+<div class="chatbot-container" id="chatbotContainer">
+    <div class="chatbot-header">
+        <div class="chatbot-title">
+            <i class="fas fa-leaf"></i>
+            <h3>Eco Assistant</h3>
+        </div>
+        <button class="chatbot-close" id="chatbotClose">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+        <div class="chatbot-message chatbot-response">
+            <div class="message-content">
+                <p>Hi there! I'm your Eco Assistant. How can I help you with sustainable living today?</p>
+            </div>
+            <div class="message-time">Just now</div>
+        </div>
+    </div>
+    <div class="chatbot-quick-replies">
+        <button class="quick-reply" data-message="How can I reduce my carbon footprint?">Carbon Footprint</button>
+        <button class="quick-reply" data-message="What are some easy eco-friendly habits?">Eco Habits</button>
+        <button class="quick-reply" data-message="Tell me about recycling tips">Recycling Tips</button>
+    </div>
+    <div class="chatbot-input">
+        <input type="text" id="chatbotInput" placeholder="Ask me about sustainability...">
+        <button id="chatbotSend"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+
+<button class="chatbot-toggle" id="chatbotToggle">
+    <i class="fas fa-leaf"></i>
+    <span>Eco Assistant</span>
+</button>
+<style>
+    /* Chatbot Styles */
+.chatbot-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 600;
+    box-shadow: 0 5px 20px rgba(26, 58, 50, 0.4);
+    z-index: 999;
+    transition: var(--transition);
+}
+
+.chatbot-toggle:hover {
+    background-color: var(--dark-green);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(26, 58, 50, 0.5);
+}
+
+.chatbot-toggle i {
+    font-size: 1.2rem;
+}
+
+.chatbot-container {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 350px;
+    height: 500px;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+    transform: translateY(20px);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.chatbot-container.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.chatbot-header {
+    background-color: var(--primary-green);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-title {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.chatbot-title h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.chatbot-title i {
+    font-size: 1.3rem;
+}
+
+.chatbot-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.chatbot-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.chatbot-messages {
+    flex-grow: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--lighter-green);
+}
+
+.chatbot-message {
+    max-width: 80%;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.chatbot-response {
+    align-self: flex-start;
+    background-color: white;
+    border-top-left-radius: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.chatbot-user {
+    align-self: flex-end;
+    background-color: var(--primary-green);
+    color: white;
+    border-top-right-radius: 0;
+}
+
+.message-content {
+    margin-bottom: 0.5rem;
+}
+
+.message-time {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    text-align: right;
+}
+
+.chatbot-quick-replies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1rem;
+    background-color: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.quick-reply {
+    background-color: var(--lighter-green);
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--primary-green);
+    font-weight: 500;
+}
+
+.quick-reply:hover {
+    background-color: var(--primary-green);
+    color: white;
+}
+
+.chatbot-input {
+    display: flex;
+    padding: 1rem;
+    background-color: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.chatbot-input input {
+    flex-grow: 1;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+.chatbot-input input:focus {
+    border-color: var(--primary-green);
+}
+
+#chatbotSend {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+#chatbotSend:hover {
+    background-color: var(--dark-green);
+    transform: scale(1.05);
+}
+
+/* Typing indicator */
+.typing-indicator {
+    display: flex;
+    padding: 0.8rem 1rem;
+    background-color: white;
+    border-radius: 12px;
+    border-top-left-radius: 0;
+    align-self: flex-start;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-green);
+    border-radius: 50%;
+    margin: 0 2px;
+    animation: typingAnimation 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typingAnimation {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+}
+</style>
+<script>
+    // Comprehensive Green Horizon Chatbot
+const chatbot = {
+  // DOM Elements
+  elements: {
+    container: document.getElementById('chatbotContainer'),
+    toggle: document.getElementById('chatbotToggle'),
+    close: document.getElementById('chatbotClose'),
+    messages: document.getElementById('chatbotMessages'),
+    input: document.getElementById('chatbotInput'),
+    send: document.getElementById('chatbotSend'),
+    quickReplies: document.querySelector('.chatbot-quick-replies')
+  },
+  
+  // Chatbot state
+  state: {
+    open: false,
+    userName: '',
+    userInterests: []
+  },
+  
+  // Knowledge base - Expanded with more categories and responses
+  knowledgeBase: {
+    greetings: [
+      "Hello! I'm your Green Horizon assistant. How can I help you with sustainability today?",
+      "Hi there! What sustainable living topic would you like to explore?",
+      "Welcome back! Ready to continue your eco-journey?"
+    ],
+    
+    farewells: [
+      "Goodbye! Remember - small sustainable actions add up to big change!",
+      "See you later! Check out our Challenges section for daily eco-tips!",
+      "Have a great day! Come back anytime for sustainability advice."
+    ],
+    
+    appFeatures: {
+      general: `Green Horizon is a comprehensive sustainability platform that helps you:
+        🌱 Track your environmental impact with our Carbon Tracker
+        📚 Learn through our extensive Eco Education resources
+        🎯 Set and achieve goals with our Goal System
+        👥 Connect with like-minded people in our Community
+        🛒 Discover eco-friendly products in our Marketplace`,
+        
+      carbonTracker: `Our Carbon Tracker helps you:
+        📊 Calculate your carbon footprint based on your lifestyle
+        🏠 Break down emissions by category (home, travel, food, etc.)
+        📈 Track reductions over time
+        💡 Get personalized recommendations
+        🔄 Update your data anytime to see real-time impact`,
+        
+      ecoEducation: `Our Eco Education resources include:
+        📖 Beginner guides to sustainable living
+        🎓 Advanced courses on environmental science
+        📱 Daily tips and challenges
+        🎥 Video tutorials on eco-friendly practices
+        📅 Weekly webinars with sustainability experts`,
+        
+      goalSystem: `Our Goal System allows you to:
+        ✅ Set custom sustainability goals
+        📅 Track daily progress with reminders
+        🏆 Earn badges for achievements
+        👥 Join community challenges
+        📊 Compare your progress with similar users`,
+        
+      community: `Our Community features:
+        💬 Discussion forums on all sustainability topics
+        👫 Local groups to meet like-minded people
+        🌍 Global challenges to participate in
+        🛠️ Skill-sharing for sustainable living
+        🏆 Leaderboards to track your impact`
+    },
+    
+    sustainabilityTopics: {
+      carbonFootprint: `Reducing your carbon footprint:
+        1. 🏠 Home: Switch to renewable energy, improve insulation
+        2. 🚗 Transport: Walk/bike more, use public transit
+        3. 🍽️ Food: Eat more plants, reduce food waste
+        4. 🛍️ Shopping: Buy less, choose sustainable brands`,
+        
+      plasticReduction: `Plastic reduction tips:
+        🛒 Bring reusable bags, bottles, and containers
+        🥡 Avoid single-use packaging (choose bulk options)
+        ♻️ Learn proper recycling for your area
+        ✊ Support plastic reduction policies
+        🧴 Switch to package-free personal care products`,
+        
+      energyConservation: `Energy conservation strategies:
+        💡 Switch to LED bulbs (use 75% less energy)
+        🔌 Unplug devices when not in use
+        🌞 Use natural light when possible
+        ❄️ Set thermostat wisely (each degree saves 3%)
+        ☀️ Consider solar panels if possible`,
+        
+      waterConservation: `Water saving techniques:
+        🚿 Shorter showers (saves 2.5 gallons per minute)
+        🚰 Fix leaks (a dripping tap wastes 3,000 gal/year)
+        🌱 Water plants in early morning
+        🍽️ Only run full dishwasher loads
+        🌧️ Install rain barrels for gardening`,
+        
+      wasteManagement: `Better waste management:
+        ♻️ Know local recycling rules
+        🍂 Compost food scraps (reduces landfill methane)
+        🔄 Repair items before replacing
+        📦 Avoid excessive packaging
+        🧴 Use refillable containers`
+    },
+    
+    userSupport: {
+      account: `Account help:
+        1. Sign Up: Click 'Sign Up' and complete your profile
+        2. Login: Use your email and password
+        3. Reset Password: Click 'Forgot Password'
+        4. Profile: Update your sustainability preferences`,
+        
+      troubleshooting: `Common solutions:
+        🔄 Refresh the page if something isn't loading
+        🧹 Clear your browser cache if experiencing issues
+        📱 Try a different browser if problems persist
+        📧 Contact support@greenhorizon.com for help`,
+        
+      feedback: `We'd love your feedback!
+        💡 Suggest features via our Community forum
+        ⭐ Rate us in the app store
+        📧 Email feedback to feedback@greenhorizon.com
+        📋 Take our monthly user survey`
+    }
+  },
+  
+  // Initialize the chatbot
+  init() {
+    this.setupEventListeners();
+    this.showWelcomeMessage();
+    this.updateQuickReplies();
+  },
+  
+  // Set up all event listeners
+  setupEventListeners() {
+    // Toggle chatbot visibility
+    this.elements.toggle.addEventListener('click', () => {
+      this.state.open = !this.state.open;
+      this.elements.container.classList.toggle('open', this.state.open);
+    });
+    
+    // Close chatbot
+    this.elements.close.addEventListener('click', () => {
+      this.state.open = false;
+      this.elements.container.classList.remove('open');
+    });
+    
+    // Send message on button click
+    this.elements.send.addEventListener('click', () => this.handleSendMessage());
+    
+    // Send message on Enter key
+    this.elements.input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') this.handleSendMessage();
+    });
+  },
+  
+  // Handle sending a message
+  async handleSendMessage(predefinedMessage) {
+    const message = predefinedMessage || this.elements.input.value.trim();
+    if (!message) return;
+    
+    // Clear input if this was a manual message
+    if (!predefinedMessage) this.elements.input.value = '';
+    
+    // Add user message to chat
+    this.addMessage(message, 'user');
+    
+    // Show typing indicator
+    this.showTypingIndicator();
+    
+    // Simulate AI processing delay
+    setTimeout(() => {
+      this.removeTypingIndicator();
+      const response = this.generateResponse(message);
+      this.addMessage(response, 'bot');
+      this.updateQuickReplies(); // Update quick replies based on conversation
+    }, 1000 + Math.random() * 1500); // Random delay between 1-2.5 seconds
+  },
+  
+  // Generate appropriate response based on user input
+  generateResponse(userMessage) {
+    const message = userMessage.toLowerCase();
+    
+    // Check for greetings
+    if (/(hi|hello|hey|greetings)/i.test(message)) {
+      return this.getRandomResponse(this.knowledgeBase.greetings);
+    }
+    
+    // Check for farewells
+    if (/(bye|goodbye|see you|later)/i.test(message)) {
+      return this.getRandomResponse(this.knowledgeBase.farewells);
+    }
+    
+    // Check for thanks
+    if (/(thanks|thank you|appreciate)/i.test(message)) {
+      return "You're welcome! Happy to help with your sustainability journey.";
+    }
+    
+    // Application feature queries
+    if (/(app|application|platform|green horizon)/i.test(message)) {
+      return this.knowledgeBase.appFeatures.general;
+    }
+    
+    if (/(carbon tracker|footprint calculator)/i.test(message)) {
+      return this.knowledgeBase.appFeatures.carbonTracker;
+    }
+    
+    if (/(eco edu|education|learn|resources)/i.test(message)) {
+      return this.knowledgeBase.appFeatures.ecoEducation;
+    }
+    
+    if (/(goal|target|challenge)/i.test(message)) {
+      return this.knowledgeBase.appFeatures.goalSystem;
+    }
+    
+    if (/(community|forum|connect|people)/i.test(message)) {
+      return this.knowledgeBase.appFeatures.community;
+    }
+    
+    // Sustainability topics
+    if (/(carbon|footprint|emission)/i.test(message)) {
+      return this.knowledgeBase.sustainabilityTopics.carbonFootprint;
+    }
+    
+    if (/(plastic|waste|zero waste)/i.test(message)) {
+      return this.knowledgeBase.sustainabilityTopics.plasticReduction;
+    }
+    
+    if (/(energy|electric|power)/i.test(message)) {
+      return this.knowledgeBase.sustainabilityTopics.energyConservation;
+    }
+    
+    if (/(water|conserv|drought)/i.test(message)) {
+      return this.knowledgeBase.sustainabilityTopics.waterConservation;
+    }
+    
+    if (/(recycl|compost|waste management)/i.test(message)) {
+      return this.knowledgeBase.sustainabilityTopics.wasteManagement;
+    }
+    
+    // User support queries
+    if (/(account|sign up|register|login)/i.test(message)) {
+      return this.knowledgeBase.userSupport.account;
+    }
+    
+    if (/(problem|issue|trouble|not working)/i.test(message)) {
+      return this.knowledgeBase.userSupport.troubleshooting;
+    }
+    
+    if (/(feedback|suggest|improve)/i.test(message)) {
+      return this.knowledgeBase.userSupport.feedback;
+    }
+    
+    // Default response with suggestions
+    return `I'm happy to help with sustainability topics! Try asking about:
+      - Your carbon footprint
+      - Plastic reduction tips
+      - Energy saving techniques
+      - Water conservation methods
+      - Features of our platform
+      Or type "help" for more options.`;
+  },
+  
+  // Get random response from an array
+  getRandomResponse(responses) {
+    return responses[Math.floor(Math.random() * responses.length)];
+  },
+  
+  // Show welcome message
+  showWelcomeMessage() {
+    setTimeout(() => {
+      this.addMessage(this.getRandomResponse(this.knowledgeBase.greetings), 'bot');
+    }, 500);
+  },
+  
+  // Add message to chat UI
+  addMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `chatbot-message chatbot-${sender}`;
+    
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    messageDiv.innerHTML = `
+      <div class="message-content">
+        <p>${text}</p>
+      </div>
+      <div class="message-time">${timeString}</div>
+    `;
+    
+    this.elements.messages.appendChild(messageDiv);
+    this.elements.messages.scrollTop = this.elements.messages.scrollHeight;
+  },
+  
+  // Show typing indicator
+  showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'typing-indicator';
+    typingDiv.id = 'typingIndicator';
+    typingDiv.innerHTML = `
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    `;
+    this.elements.messages.appendChild(typingDiv);
+    this.elements.messages.scrollTop = this.elements.messages.scrollHeight;
+  },
+  
+  // Remove typing indicator
+  removeTypingIndicator() {
+    const typingIndicator = document.getElementById('typingIndicator');
+    if (typingIndicator) {
+      typingIndicator.remove();
+    }
+  },
+  
+  // Update quick reply buttons based on context
+  updateQuickReplies() {
+    const quickReplies = [
+      "How does the Carbon Tracker work?",
+      "What are today's eco-tips?",
+      "How can I save water at home?",
+      "Tell me about community challenges"
+    ];
+    
+    this.elements.quickReplies.innerHTML = '';
+    
+    quickReplies.forEach(reply => {
+      const button = document.createElement('button');
+      button.className = 'quick-reply';
+      button.textContent = reply;
+      button.addEventListener('click', () => {
+        this.handleSendMessage(reply);
+      });
+      this.elements.quickReplies.appendChild(button);
+    });
+  }
+};
+
+// Initialize the chatbot when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  chatbot.init();
+});
+</script>
+
+    <!-- Sidebar Toggle -->
+    <button class="toggle-sidebar" id="toggleSidebar">
+        <i class="fas fa-tools"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Quick Access Tools</h3>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="carbonfoot.html">
+                    <i class="fas fa-calculator"></i>
+                    Carbon Calculator
+                </a>
+            </li>
+            <li>
+                <a href="quiz.html">
+                    <i class="fas fa-question-circle"></i>
+                    Sustainability Quiz
+                </a>
+            </li>
+            <li>
+                <a href="blogs.html">
+                    <i class="fas fa-newspaper"></i>
+                    Latest Articles
+                </a>
+            </li>
+            <li>
+                <a href="goal.html">
+                    <i class="fas fa-bullseye"></i>
+                    My Goals
+                </a>
+            </li>
+            <li>
+                <a href="progress.html">
+                    <i class="fas fa-chart-line"></i>
+                    Progress Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="community.html">
+                    <i class="fas fa-users"></i>
+                    Community Forum
+                </a>
+            </li>
+            <li>
+                <a href="product.html">
+                    <i class="fas fa-shopping-bag"></i>
+                    Eco-Friendly Products
+                </a>
+            </li>
+            <li>
+                <a href="calender.html">
+                    <i class="fas fa-calendar-alt"></i>
+                    Events Calendar
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-hands-helping"></i>
+                    Volunteer Opportunities
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <i class="fas fa-leaf leaf-decoration leaf-1"></i>
+        <i class="fas fa-leaf leaf-decoration leaf-2"></i>
+        
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Green Horizon</h4>
+                <p>Our mission is to empower individuals and communities to create meaningful environmental change through education, tools, and collective action.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="ourmission.html">Our Mission</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p>info@greenhorizon.org</p>
+                <p>+1 (555) 123-4567</p>
+                <p>123 Sustainability Way<br>Eco City, sist,chennai</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Green Horizon. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script>
+        // Slider functionality
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        // Change slide every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // Sidebar functionality
+        const sidebar = document.getElementById('sidebar');
+        const toggleSidebar = document.getElementById('toggleSidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        toggleSidebar.addEventListener('click', () => {
+            sidebar.classList.add('open');
+        });
+
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && e.target !== toggleSidebar) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.feature-card, .tip-card');
+            const windowHeight = window.innerHeight;
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const animationPoint = windowHeight * 0.8;
+                
+                if (elementPosition < animationPoint) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Set initial state for animation
+        document.querySelectorAll('.feature-card, .tip-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        });
+
+        // Run once on load
+        animateOnScroll();
+
+        // Run on scroll
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>

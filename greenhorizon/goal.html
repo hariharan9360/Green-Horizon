@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Horizon - Goal Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-green: #1a3a32;
+            --dark-green: #0d2721;
+            --light-green: #4a8c7d;
+            --lighter-green: #e8f0ee;
+            --accent-teal: #2a9d8f;
+            --gold: #e9c46a;
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            --section-padding: 6rem 2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--lighter-green);
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        /* Premium Navigation */
+        .top-toolbar {
+            background-color: var(--primary-green);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .toolbar-container {
+            display: flex;
+            gap: 1.5rem;
+            max-width: 1400px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-btn:hover {
+            background-color: var(--accent-teal);
+            transform: translateY(-2px);
+        }
+
+        .tool-btn i {
+            font-size: 0.9rem;
+        }
+
+        header {
+            background-color: white;
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background-color: var(--primary-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            transform: rotate(15deg);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.7rem;
+            color: var(--primary-green);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-teal);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            height: 100%;
+        }
+
+        nav li {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            padding: 1.5rem 0.5rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary-green);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent-teal);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-nav {
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+        }
+
+        .btn-nav-outline {
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .btn-nav-outline:hover {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .btn-nav-filled {
+            background-color: var(--primary-green);
+            color: white;
+            box-shadow: 0 4px 15px rgba(42, 92, 82, 0.3);
+        }
+
+        .btn-nav-filled:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 58, 50, 0.9) 0%, rgba(42, 157, 143, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 3rem;
+            border-radius: 12px;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--text-dark);
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: #f4a261;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /* Goal Tracking Section */
+        .goal-tracker {
+            padding: var(--section-padding);
+            background-color: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--gold);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .goal-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .goal-summary {
+            background-color: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-card {
+            background-color: var(--lighter-green);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .summary-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-green);
+        }
+
+        .summary-card .value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+        }
+
+        .summary-card .label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .progress-chart {
+            background-color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+
+        /* Goals List */
+        .goals-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .goal-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .goal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .goal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--accent-teal);
+            transition: var(--transition);
+        }
+
+        .goal-card:hover::before {
+            width: 8px;
+        }
+
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .goal-title {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .goal-category {
+            background-color: var(--lighter-green);
+            color: var(--primary-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .goal-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .goal-progress {
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: var(--lighter-green);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--accent-teal);
+            border-radius: 5px;
+            transition: width 0.8s ease;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .goal-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-teal);
+            font-weight: 500;
+        }
+
+        .stat-item i {
+            font-size: 1.1rem;
+        }
+
+        .goal-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-goal {
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-edit {
+            background-color: var(--lighter-green);
+            color: var(--primary-green);
+        }
+
+        .btn-edit:hover {
+            background-color: #d6e5e1;
+        }
+
+        .btn-delete {
+            background-color: #ffeaea;
+            color: #d14;
+        }
+
+        .btn-delete:hover {
+            background-color: #f8d7d7;
+        }
+
+        .btn-complete {
+            background-color: var(--gold);
+            color: var(--text-dark);
+        }
+
+        .btn-complete:hover {
+            background-color: #e0b452;
+        }
+
+        /* Add Goal Form */
+        .add-goal {
+            background-color: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+            margin-top: 3rem;
+        }
+
+        .form-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-header h3 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary-green);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background-color: white;
+            color: var(--text-dark);
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: -5px 0 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.open {
+            right: 0;
+        }
+
+        .sidebar-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-sidebar:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 2rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.8rem;
+        }
+
+        .sidebar-menu a {
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            transition: var(--transition);
+            font-weight: 500;
+            background-color: var(--lighter-green);
+        }
+
+        .sidebar-menu a:hover {
+            background-color: var(--primary-green);
+            color: white;
+            transform: translateX(10px);
+        }
+
+        .sidebar-menu i {
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .sidebar-menu a:hover i {
+            color: var(--gold);
+        }
+
+        .toggle-sidebar {
+            position: fixed;
+            right: 30px;
+            top: 180px;
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 10px 30px rgba(26, 58, 50, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .toggle-sidebar:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-green);
+            color: var(--text-light);
+            padding: 5rem 2rem 2rem;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+
+        .footer-col p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0.9;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            transform: translateX(5px);
+            color: var(--gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background-color: var(--gold);
+            color: var(--text-dark);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .leaf-decoration {
+            position: absolute;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .leaf-1 {
+            top: 50px;
+            left: 50px;
+            font-size: 10rem;
+            transform: rotate(15deg);
+        }
+
+        .leaf-2 {
+            bottom: 100px;
+            right: 100px;
+            font-size: 8rem;
+            transform: rotate(-20deg);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: modalFadeIn 0.4s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--primary-green);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero {
+                height: 450px;
+            }
+            
+            .hero h2 {
+                font-size: 2.6rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-container {
+                height: 70px;
+            }
+
+            .hero {
+                height: 400px;
+            }
+
+            .hero h2 {
+                font-size: 2.4rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.4rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-toolbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .toolbar-container {
+                gap: 0.8rem;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+                scrollbar-width: none;
+            }
+
+            .toolbar-container::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tool-btn {
+                flex-shrink: 0;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 1rem 0;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-bottom: 1rem;
+            }
+
+            .nav-actions {
+                margin-bottom: 1rem;
+            }
+
+            .hero {
+                height: 350px;
+            }
+
+            .hero-content {
+                padding: 2rem;
+                margin: 0 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .sidebar {
+                width: 320px;
+                right: -320px;
+            }
+
+            .toggle-sidebar {
+                width: 50px;
+                height: 50px;
+                right: 20px;
+                top: 150px;
+            }
+
+            .goals-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .btn {
+                padding: 0.9rem 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .goal-card {
+                padding: 1.5rem;
+            }
+
+            .add-goal {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Toolbar -->
+    <div class="top-toolbar">
+        <div class="toolbar-container">
+            <a href="carbonfoot.html" class="tool-btn">
+                <i class="fas fa-calculator"></i>
+                Carbon Footprint
+            </a>
+            <a href="quiz.html" class="tool-btn">
+                <i class="fas fa-question-circle"></i>
+                Eco Quiz
+            </a>
+            <a href="blogs.html" class="tool-btn">
+                <i class="fas fa-newspaper"></i>
+                Blogs
+            </a>
+            <a href="#" class="tool-btn">
+                <i class="fas fa-chart-line"></i>
+                Progress Tracker
+            </a>
+            <a href="challenges.html" class="tool-btn">
+                <i class="fas fa-leaf"></i>
+                Challenges
+            </a>
+            <a href="product.html" class="tool-btn">
+                <i class="fas fa-shopping-bag"></i>
+                Eco Products
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="home.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="logo-text">Green<span>Horizon</span></div>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#">Solutions</a></li>
+                    <li><a href="#">Impact</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Resources</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="home.html" class="btn-nav btn-nav-outline">Back to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="slider">
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1526779259212-939e64788e3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2052&q=80');"></div>
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1518176258769-f227c798150e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80');"></div>
+        </div>
+        <div class="hero-content">
+            <h2>Track Your Sustainable Goals</h2>
+            <p>Set, monitor, and achieve your environmental impact goals with our comprehensive tracking system.</p>
+            <a href="#goalFormSection" class="btn" id="addGoalBtn">Add New Goal</a>
+        </div>
+    </section>
+
+    <!-- Goal Tracking Section -->
+    <section class="goal-tracker">
+        <div class="section-header">
+            <h2>Your Sustainability Progress</h2>
+            <p>Visualize your impact and stay motivated with our interactive tracking tools</p>
+        </div>
+        
+        <div class="goal-container">
+            <div class="goal-summary">
+                <div class="summary-cards" id="summaryCards">
+                    <!-- Summary cards will be updated dynamically -->
+                </div>
+                
+                <div class="progress-chart">
+                    <h3>Monthly Progress</h3>
+                    <div class="chart-container">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 style="color: var(--primary-green); margin-bottom: 1.5rem;">Your Current Goals</h3>
+            
+            <div class="goals-list" id="goalsList">
+                <!-- Goal cards will be added here dynamically -->
+            </div>
+            
+            <div class="add-goal" id="goalFormSection">
+                <div class="form-header">
+                    <h3>Create New Goal</h3>
+                    <p>Set a new sustainability target to work towards</p>
+                </div>
+                <form id="goalForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="goalTitle">Goal Title</label>
+                            <input type="text" id="goalTitle" class="form-control" placeholder="e.g. Reduce plastic usage" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="goalCategory">Category</label>
+                            <select id="goalCategory" class="form-control" required>
+                                <option value="">Select category</option>
+                                <option value="Waste Reduction">Waste Reduction</option>
+                                <option value="Energy Saving">Energy Saving</option>
+                                <option value="Water Conservation">Water Conservation</option>
+                                <option value="Transportation">Transportation</option>
+                                <option value="Food Choices">Food Choices</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="goalDescription">Description</label>
+                        <textarea id="goalDescription" class="form-control" rows="3" placeholder="Describe your goal in detail"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="goalTarget">Target Value</label>
+                            <input type="number" id="goalTarget" class="form-control" placeholder="e.g. 50 (kg, %, etc)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="goalUnit">Unit of Measurement</label>
+                            <select id="goalUnit" class="form-control" required>
+                                <option value="">Select unit</option>
+                                <option value="kg">kg</option>
+                                <option value="%">%</option>
+                                <option value="L">Liters (L)</option>
+                                <option value="kWh">kWh</option>
+                                <option value="items">items</option>
+                                <option value="times">times</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="goalStart">Start Date</label>
+                            <input type="date" id="goalStart" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="goalEnd">Target Date</label>
+                            <input type="date" id="goalEnd" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-goal btn-edit" id="cancelGoalBtn">Cancel</button>
+                        <button type="submit" class="btn-goal btn-complete">Save Goal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sidebar Toggle -->
+    <button class="toggle-sidebar" id="toggleSidebar">
+        <i class="fas fa-tools"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Quick Access Tools</h3>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="carbonfoot.html">
+                    <i class="fas fa-calculator"></i>
+                    Carbon Calculator
+                </a>
+            </li>
+            <li>
+                <a href="quiz.html">
+                    <i class="fas fa-question-circle"></i>
+                    Sustainability Quiz
+                </a>
+            </li>
+            <li>
+                <a href="blogs.html">
+                    <i class="fas fa-newspaper"></i>
+                    Latest Articles
+                </a>
+            </li>
+            <li>
+                <a href="goal.html">
+                    <i class="fas fa-bullseye"></i>
+                    My Goals
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-chart-line"></i>
+                    Progress Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-users"></i>
+                    Community Forum
+                </a>
+            </li>
+            <li>
+                <a href="product.html">
+                    <i class="fas fa-shopping-bag"></i>
+                    Eco-Friendly Products
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-calendar-alt"></i>
+                    Events Calendar
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-hands-helping"></i>
+                    Volunteer Opportunities
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <i class="fas fa-leaf leaf-decoration leaf-1"></i>
+        <i class="fas fa-leaf leaf-decoration leaf-2"></i>
+        
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Green Horizon</h4>
+                <p>Our mission is to empower individuals and communities to create meaningful environmental change through education, tools, and collective action.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="ourmission.html">Our Mission</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p>info@greenhorizon.org</p>
+                <p>+1 (555) 123-4567</p>
+                <p>123 Sustainability Way<br>Eco City, EC 12345</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Green Horizon. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+        </div>
+    </footer>
+
+    <!-- Edit Goal Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div class="form-header">
+                <h3>Edit Goal</h3>
+                <p>Update your goal details and progress</p>
+            </div>
+            <form id="editGoalForm">
+                <input type="hidden" id="editGoalId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editGoalTitle">Goal Title</label>
+                        <input type="text" id="editGoalTitle" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editGoalCategory">Category</label>
+                        <select id="editGoalCategory" class="form-control" required>
+                            <option value="Waste Reduction">Waste Reduction</option>
+                            <option value="Energy Saving">Energy Saving</option>
+                            <option value="Water Conservation">Water Conservation</option>
+                            <option value="Transportation">Transportation</option>
+                            <option value="Food Choices">Food Choices</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="editGoalDescription">Description</label>
+                    <textarea id="editGoalDescription" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editGoalTarget">Target Value</label>
+                        <input type="number" id="editGoalTarget" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editGoalCurrent">Current Progress</label>
+                        <input type="number" id="editGoalCurrent" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editGoalUnit">Unit of Measurement</label>
+                        <select id="editGoalUnit" class="form-control" required>
+                            <option value="kg">kg</option>
+                            <option value="%">%</option>
+                            <option value="L">Liters (L)</option>
+                            <option value="kWh">kWh</option>
+                            <option value="items">items</option>
+                            <option value="times">times</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editGoalEnd">Target Date</label>
+                        <input type="date" id="editGoalEnd" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-goal btn-edit" id="cancelEditBtn">Cancel</button>
+                    <button type="submit" class="btn-goal btn-complete">Update Goal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample goals data
+        let goals = [
+            {
+                id: 1,
+                title: "Reduce Plastic Waste",
+                category: "Waste Reduction",
+                description: "Eliminate single-use plastics from daily shopping by using reusable bags and containers.",
+                target: 90,
+                current: 45,
+                unit: "%",
+                startDate: "2023-01-15",
+                endDate: "2023-12-31",
+                completed: false
+            },
+            {
+                id: 2,
+                title: "Lower Energy Consumption",
+                category: "Energy Saving",
+                description: "Reduce household electricity usage by switching to LED bulbs and unplugging devices when not in use.",
+                target: 20,
+                current: 12,
+                unit: "%",
+                startDate: "2023-03-01",
+                endDate: "2023-12-31",
+                completed: false
+            },
+            {
+                id: 3,
+                title: "Meat-Free Days",
+                category: "Food Choices",
+                description: "Implement 3 meat-free days per week to reduce carbon footprint from food consumption.",
+                target: 3,
+                current: 2,
+                unit: "days/week",
+                startDate: "2023-05-10",
+                endDate: "2023-12-31",
+                completed: false
+            },
+            {
+                id: 4,
+                title: "Water Usage Reduction",
+                category: "Water Conservation",
+                description: "Install low-flow showerheads and fix leaks to reduce water consumption.",
+                target: 30,
+                current: 18,
+                unit: "%",
+                startDate: "2023-02-20",
+                endDate: "2023-11-30",
+                completed: false
+            },
+            {
+                id: 5,
+                title: "Bike to Work",
+                category: "Transportation",
+                description: "Replace car commute with bicycle at least twice a week.",
+                target: 2,
+                current: 1,
+                unit: "days/week",
+                startDate: "2023-04-01",
+                endDate: "2023-10-31",
+                completed: false
+            },
+            {
+                id: 6,
+                title: "Recycle Paper Waste",
+                category: "Waste Reduction",
+                description: "Recycle 100% of paper waste from home office.",
+                target: 100,
+                current: 100,
+                unit: "%",
+                startDate: "2023-01-01",
+                endDate: "2023-06-30",
+                completed: true
+            }
+        ];
+
+        // DOM Elements
+        const goalsList = document.getElementById('goalsList');
+        const summaryCards = document.getElementById('summaryCards');
+        const goalForm = document.getElementById('goalForm');
+        const addGoalBtn = document.getElementById('addGoalBtn');
+        const cancelGoalBtn = document.getElementById('cancelGoalBtn');
+        const editModal = document.getElementById('editModal');
+        const editGoalForm = document.getElementById('editGoalForm');
+        const closeModal = document.getElementById('closeModal');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        const goalFormSection = document.getElementById('goalFormSection');
+
+        // Chart variable
+        let progressChart;
+
+        // Initialize Chart
+        function initChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            
+            // Calculate monthly progress based on goals
+            const monthlyProgress = calculateMonthlyProgress();
+            
+            progressChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [
+                        {
+                            label: 'Goals Completed',
+                            data: monthlyProgress.completed,
+                            backgroundColor: 'rgba(42, 157, 143, 0.7)',
+                            borderColor: 'rgba(42, 157, 143, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Goals Added',
+                            data: monthlyProgress.added,
+                            backgroundColor: 'rgba(233, 196, 106, 0.7)',
+                            borderColor: 'rgba(233, 196, 106, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Goals'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Month'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Calculate monthly progress for chart
+        function calculateMonthlyProgress() {
+            const completed = Array(12).fill(0);
+            const added = Array(12).fill(0);
+            
+            goals.forEach(goal => {
+                const startMonth = new Date(goal.startDate).getMonth();
+                added[startMonth]++;
+                
+                if (goal.completed) {
+                    const endMonth = new Date(goal.endDate).getMonth();
+                    completed[endMonth]++;
+                }
+            });
+            
+            return { completed, added };
+        }
+
+        // Update summary cards
+        function updateSummaryCards() {
+            const activeGoals = goals.filter(g => !g.completed).length;
+            const completedGoals = goals.filter(g => g.completed).length;
+            
+            // Calculate CO2 and water savings (simplified example)
+            const co2Reduced = goals.reduce((sum, goal) => {
+                if (goal.category === "Waste Reduction" || goal.category === "Transportation") {
+                    return sum + (goal.completed ? goal.target : goal.current);
+                }
+                return sum;
+            }, 0);
+            
+            const waterSaved = goals.reduce((sum, goal) => {
+                if (goal.category === "Water Conservation") {
+                    return sum + (goal.completed ? goal.target : goal.current);
+                }
+                return sum;
+            }, 0);
+            
+            summaryCards.innerHTML = `
+                <div class="summary-card">
+                    <h3>Active Goals</h3>
+                    <div class="value">${activeGoals}</div>
+                    <div class="label">Currently working on</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Completed</h3>
+                    <div class="value">${completedGoals}</div>
+                    <div class="label">Goals achieved</div>
+                </div>
+                <div class="summary-card">
+                    <h3>CO2 Reduced</h3>
+                    <div class="value">${co2Reduced}kg</div>
+                    <div class="label">This year</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Water Saved</h3>
+                    <div class="value">${waterSaved}L</div>
+                    <div class="label">Lifetime impact</div>
+                </div>
+            `;
+        }
+
+        // Render goals list
+        function renderGoals() {
+            goalsList.innerHTML = '';
+            
+            // Filter out completed goals (we'll show active ones first)
+            const activeGoals = goals.filter(g => !g.completed);
+            const completedGoals = goals.filter(g => g.completed);
+            
+            // Render active goals
+            activeGoals.forEach(goal => {
+                const progress = (goal.current / goal.target) * 100;
+                const goalCard = document.createElement('div');
+                goalCard.className = 'goal-card';
+                goalCard.innerHTML = `
+                    <div class="goal-header">
+                        <h3 class="goal-title">${goal.title}</h3>
+                        <span class="goal-category">${goal.category}</span>
+                    </div>
+                    <p class="goal-description">${goal.description}</p>
+                    <div class="goal-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progress}%"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span>${goal.current} ${goal.unit}</span>
+                            <span>${goal.target} ${goal.unit}</span>
+                        </div>
+                    </div>
+                    <div class="goal-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>${formatDate(goal.startDate)} - ${formatDate(goal.endDate)}</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-percentage"></i>
+                            <span>${Math.round(progress)}% complete</span>
+                        </div>
+                    </div>
+                    <div class="goal-actions">
+                        <button class="btn-goal btn-edit" data-id="${goal.id}">Edit</button>
+                        <button class="btn-goal btn-complete" data-id="${goal.id}">Complete</button>
+                        <button class="btn-goal btn-delete" data-id="${goal.id}">Delete</button>
+                    </div>
+                `;
+                goalsList.appendChild(goalCard);
+            });
+            
+            // Render completed goals section if there are any
+            if (completedGoals.length > 0) {
+                const completedHeader = document.createElement('h3');
+                completedHeader.style.color = 'var(--primary-green)';
+                completedHeader.style.margin = '3rem 0 1.5rem';
+                completedHeader.textContent = 'Completed Goals';
+                goalsList.appendChild(completedHeader);
+                
+                completedGoals.forEach(goal => {
+                    const goalCard = document.createElement('div');
+                    goalCard.className = 'goal-card';
+                    goalCard.style.opacity = '0.8';
+                    goalCard.innerHTML = `
+                        <div class="goal-header">
+                            <h3 class="goal-title">${goal.title} <span style="color: var(--accent-teal);">✓</span></h3>
+                            <span class="goal-category">${goal.category}</span>
+                        </div>
+                        <p class="goal-description">${goal.description}</p>
+                        <div class="goal-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%; background-color: var(--gold);"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span>Completed: ${formatDate(goal.endDate)}</span>
+                                <span>${goal.target} ${goal.unit}</span>
+                            </div>
+                        </div>
+                        <div class="goal-actions">
+                            <button class="btn-goal btn-delete" data-id="${goal.id}">Delete</button>
+                        </div>
+                    `;
+                    goalsList.appendChild(goalCard);
+                });
+            }
+            
+            // Update summary cards
+            updateSummaryCards();
+            
+            // Update chart data
+            if (progressChart) {
+                const monthlyProgress = calculateMonthlyProgress();
+                progressChart.data.datasets[0].data = monthlyProgress.completed;
+                progressChart.data.datasets[1].data = monthlyProgress.added;
+                progressChart.update();
+            }
+            
+            // Add event listeners to action buttons
+            document.querySelectorAll('.btn-edit').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const goalId = parseInt(e.target.getAttribute('data-id'));
+                    openEditModal(goalId);
+                });
+            });
+
+            document.querySelectorAll('.btn-complete').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const goalId = parseInt(e.target.getAttribute('data-id'));
+                    completeGoal(goalId);
+                });
+            });
+
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const goalId = parseInt(e.target.getAttribute('data-id'));
+                    deleteGoal(goalId);
+                });
+            });
+        }
+
+        // Format date for display
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // Add new goal
+        goalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const newGoal = {
+                id: goals.length > 0 ? Math.max(...goals.map(g => g.id)) + 1 : 1,
+                title: document.getElementById('goalTitle').value,
+                category: document.getElementById('goalCategory').value,
+                description: document.getElementById('goalDescription').value,
+                target: parseFloat(document.getElementById('goalTarget').value),
+                current: 0,
+                unit: document.getElementById('goalUnit').value,
+                startDate: document.getElementById('goalStart').value,
+                endDate: document.getElementById('goalEnd').value,
+                completed: false
+            };
+            
+            goals.push(newGoal);
+            renderGoals();
+            goalForm.reset();
+            
+            // Scroll to the new goal
+            const newGoalElement = document.querySelector(`[data-id="${newGoal.id}"]`).closest('.goal-card');
+            newGoalElement.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Cancel adding new goal
+        cancelGoalBtn.addEventListener('click', () => {
+            goalForm.reset();
+        });
+
+        // Open edit modal
+        function openEditModal(goalId) {
+            const goal = goals.find(g => g.id === goalId);
+            if (goal) {
+                document.getElementById('editGoalId').value = goal.id;
+                document.getElementById('editGoalTitle').value = goal.title;
+                document.getElementById('editGoalCategory').value = goal.category;
+                document.getElementById('editGoalDescription').value = goal.description;
+                document.getElementById('editGoalTarget').value = goal.target;
+                document.getElementById('editGoalCurrent').value = goal.current;
+                document.getElementById('editGoalUnit').value = goal.unit;
+                document.getElementById('editGoalEnd').value = goal.endDate;
+                
+                editModal.style.display = 'flex';
+            }
+        }
+
+        // Close edit modal
+        function closeEditModal() {
+            editModal.style.display = 'none';
+        }
+
+        // Update goal
+        editGoalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const goalId = parseInt(document.getElementById('editGoalId').value);
+            const goalIndex = goals.findIndex(g => g.id === goalId);
+            
+            if (goalIndex !== -1) {
+                goals[goalIndex] = {
+                    ...goals[goalIndex],
+                    title: document.getElementById('editGoalTitle').value,
+                    category: document.getElementById('editGoalCategory').value,
+                    description: document.getElementById('editGoalDescription').value,
+                    target: parseFloat(document.getElementById('editGoalTarget').value),
+                    current: parseFloat(document.getElementById('editGoalCurrent').value),
+                    unit: document.getElementById('editGoalUnit').value,
+                    endDate: document.getElementById('editGoalEnd').value
+                };
+                
+                // Check if goal is completed
+                if (goals[goalIndex].current >= goals[goalIndex].target) {
+                    goals[goalIndex].completed = true;
+                }
+                
+                renderGoals();
+                closeEditModal();
+            }
+        });
+
+        // Complete goal
+        function completeGoal(goalId) {
+            const goalIndex = goals.findIndex(g => g.id === goalId);
+            
+            if (goalIndex !== -1) {
+                goals[goalIndex].current = goals[goalIndex].target;
+                goals[goalIndex].completed = true;
+                renderGoals();
+                
+                // Show completion message
+                alert(`Congratulations! You've completed your goal: ${goals[goalIndex].title}`);
+            }
+        }
+
+        // Delete goal
+        function deleteGoal(goalId) {
+            if (confirm('Are you sure you want to delete this goal?')) {
+                goals = goals.filter(g => g.id !== goalId);
+                renderGoals();
+            }
+        }
+
+        // Close modal events
+        closeModal.addEventListener('click', closeEditModal);
+        cancelEditBtn.addEventListener('click', closeEditModal);
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === editModal) {
+                closeEditModal();
+            }
+        });
+
+        // Sidebar functionality
+        const sidebar = document.getElementById('sidebar');
+        const toggleSidebar = document.getElementById('toggleSidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        toggleSidebar.addEventListener('click', () => {
+            sidebar.classList.add('open');
+        });
+
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && e.target !== toggleSidebar) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Slider functionality
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        // Change slide every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // Set default dates for the form
+        document.getElementById('goalStart').valueAsDate = new Date();
+        const endDate = new Date();
+        endDate.setMonth(endDate.getMonth() + 3);
+        document.getElementById('goalEnd').valueAsDate = endDate;
+
+        // Initial render
+        initChart();
+        renderGoals();
+    </script>
+</body>
+</html>
